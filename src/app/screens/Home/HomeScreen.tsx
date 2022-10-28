@@ -10,10 +10,14 @@ import HomeTitle from './HomeTitle';
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
 export default function HomeScreen({ navigation, route }: Props) {
+
+  const toAddDeliveryScren = () => {
+    navigation.push('AddDelivery')
+  }
   return (
     <Container>
       <HomeTitle />
-      <AddDeliveryPoint />
+      <AddDeliveryPoint onPress={toAddDeliveryScren} />
       <HomeMenu />
       <Text>carlos</Text>
     </Container>
