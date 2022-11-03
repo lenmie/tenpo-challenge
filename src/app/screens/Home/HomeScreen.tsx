@@ -1,25 +1,20 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import { StackParamList } from '../../../navigation/AppNavigator';
-import AddDeliveryPoint from './AddDeliveryPoint';
-import HomeMenu from './HomeMenu';
-import { Container } from './HomeScreen.styled';
-import HomeTitle from './HomeTitle';
+import { Container } from '../../components/Container.styled';
+import HomeContentContainer from './HomeContentContainer';
+import HomeTopContainer from './HomeTopContainer';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
-export default function HomeScreen({ navigation, route }: Props) {
-
-  const toAddDeliveryScren = () => {
-    navigation.push('AddDelivery')
-  }
+export default function HomeScreen() {
   return (
-    <Container>
-      <HomeTitle />
-      <AddDeliveryPoint onPress={toAddDeliveryScren} />
-      <HomeMenu />
-      <Text>carlos</Text>
+    <Container width="100%" height=" 100%" bg="grey.3">
+      <ScrollView>
+        <HomeTopContainer />
+        <HomeContentContainer />
+      </ScrollView>
     </Container>
   );
 }

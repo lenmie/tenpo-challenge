@@ -10,12 +10,48 @@
       "sha1": "5963224900d40f243ab3c8ec35f21adfbb60cf1d"
     },
     {
+      "path": "src/assets/fonts/Gotham/Gotham-Bold.ttf",
+      "sha1": "ac5ba291bf8464df67a38f6054d25be7c2e0307f"
+    },
+    {
+      "path": "src/assets/fonts/Gotham/Gotham-BoldItalic.ttf",
+      "sha1": "da6475cdce15b579ec90a27b5cafead0687c3f5a"
+    },
+    {
+      "path": "src/assets/fonts/Gotham/Gotham-Book.ttf",
+      "sha1": "ed5bc8195822fc962503b042d0f5a1f406782f24"
+    },
+    {
       "path": "src/assets/fonts/Gotham/Gotham-BookItalic.otf",
       "sha1": "de824c676848ccff284754eb83aa423c204aa3c7"
     },
     {
+      "path": "src/assets/fonts/Gotham/Gotham-BookItalic.ttf",
+      "sha1": "b156aeb90bd308fd0a717d9633d5a82e3af7c76b"
+    },
+    {
       "path": "src/assets/fonts/Gotham/Gotham-Light.otf",
       "sha1": "3abc902e40df2ec26333b919d268556bfc6cb723"
+    },
+    {
+      "path": "src/assets/fonts/Gotham/Gotham-Light.ttf",
+      "sha1": "c44d6c4bde608e1d76b27a1587da83225af4ca4f"
+    },
+    {
+      "path": "src/assets/fonts/Gotham/Gotham-LightItalic.ttf",
+      "sha1": "d605afce503bf950089829954651052dbb377c91"
+    },
+    {
+      "path": "src/assets/fonts/Gotham/Gotham-Medium.ttf",
+      "sha1": "74c87f67010f63777e33c5114c76b1fc67e4ae5b"
+    },
+    {
+      "path": "src/assets/fonts/Gotham/Gotham-MediumItalic.ttf",
+      "sha1": "c77627e4242f0edc56145897b900854a2960b3e1"
+    },
+    {
+      "path": "src/assets/fonts/Gotham/Gotham-Medium_1.ttf",
+      "sha1": "74c87f67010f63777e33c5114c76b1fc67e4ae5b"
     },
     {
       "path": "src/assets/fonts/Gotham/Gotham-Thin.otf",
@@ -36,42 +72,6 @@
     {
       "path": "src/assets/fonts/Gotham/Gotham-XLightItalic.otf",
       "sha1": "afc40a573f2612530c9777feef9c456009caa38f"
-    },
-    {
-      "path": "src/assets/fonts/Gotham/GothamBold.ttf",
-      "sha1": "ac5ba291bf8464df67a38f6054d25be7c2e0307f"
-    },
-    {
-      "path": "src/assets/fonts/Gotham/GothamBoldItalic.ttf",
-      "sha1": "da6475cdce15b579ec90a27b5cafead0687c3f5a"
-    },
-    {
-      "path": "src/assets/fonts/Gotham/GothamBook.ttf",
-      "sha1": "ed5bc8195822fc962503b042d0f5a1f406782f24"
-    },
-    {
-      "path": "src/assets/fonts/Gotham/GothamBookItalic.ttf",
-      "sha1": "b156aeb90bd308fd0a717d9633d5a82e3af7c76b"
-    },
-    {
-      "path": "src/assets/fonts/Gotham/GothamLight.ttf",
-      "sha1": "c44d6c4bde608e1d76b27a1587da83225af4ca4f"
-    },
-    {
-      "path": "src/assets/fonts/Gotham/GothamLightItalic.ttf",
-      "sha1": "d605afce503bf950089829954651052dbb377c91"
-    },
-    {
-      "path": "src/assets/fonts/Gotham/GothamMedium.ttf",
-      "sha1": "74c87f67010f63777e33c5114c76b1fc67e4ae5b"
-    },
-    {
-      "path": "src/assets/fonts/Gotham/GothamMediumItalic.ttf",
-      "sha1": "c77627e4242f0edc56145897b900854a2960b3e1"
-    },
-    {
-      "path": "src/assets/fonts/Gotham/GothamMedium_1.ttf",
-      "sha1": "74c87f67010f63777e33c5114c76b1fc67e4ae5b"
     },
     {
       "path": "src/assets/fonts/Gotham/freefontsfamily.com.txt",

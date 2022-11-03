@@ -62,15 +62,6 @@
 		<string>Gotham-UltraItalic.otf</string>
 		<string>Gotham-XLight.otf</string>
 		<string>Gotham-XLightItalic.otf</string>
-		<string>GothamBold.ttf</string>
-		<string>GothamBoldItalic.ttf</string>
-		<string>GothamBook.ttf</string>
-		<string>GothamBookItalic.ttf</string>
-		<string>GothamLight.ttf</string>
-		<string>GothamLightItalic.ttf</string>
-		<string>GothamMedium.ttf</string>
-		<string>GothamMediumItalic.ttf</string>
-		<string>GothamMedium_1.ttf</string>
 		<string>Roboto-Black.ttf</string>
 		<string>Roboto-BlackItalic.ttf</string>
 		<string>Roboto-Bold.ttf</string>
@@ -83,6 +74,15 @@
 		<string>Roboto-Regular.ttf</string>
 		<string>Roboto-Thin.ttf</string>
 		<string>Roboto-ThinItalic.ttf</string>
+		<string>Gotham-Bold.ttf</string>
+		<string>Gotham-BoldItalic.ttf</string>
+		<string>Gotham-Book.ttf</string>
+		<string>Gotham-BookItalic.ttf</string>
+		<string>Gotham-Light.ttf</string>
+		<string>Gotham-LightItalic.ttf</string>
+		<string>Gotham-Medium.ttf</string>
+		<string>Gotham-MediumItalic.ttf</string>
+		<string>Gotham-Medium_1.ttf</string>
 	</array>
 </dict>
 </plist>
