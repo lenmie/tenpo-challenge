@@ -37,18 +37,16 @@ export default function RestoCarouselItem(props: Props) {
             position="absolute"
             right={0}
             top={0}
-            borderRadius={15}
+            borderRadius={20}
             justifyContent="center"
             alignItems="center">
             <Text
-              fontSize={1}
-              //lineHeight={10}
+              fontSize={[1]}
               color="white"
               textAlign="center"
               fontFamily="Gotham-Light">{`${resto.discount}%`}</Text>
             <Text
-              fontSize={1}
-              //lineHeight={7}
+              fontSize={[0]}
               color="white"
               textAlign="center"
               fontFamily="Gotham-Light">
@@ -64,7 +62,7 @@ export default function RestoCarouselItem(props: Props) {
         width={110}
         justifyContent="space-around">
         <Text
-          fontSize={[1]}
+          fontSize={[3]}
           textAlign="center"
           color="black"
           fontFamily="Gotham-Book">
@@ -73,11 +71,11 @@ export default function RestoCarouselItem(props: Props) {
         <Container flexDirection="row" justifyContent="space-around">
           <Container mr={1} flexDirection="row">
             <Image height={12} width={12} source={icons.star} />
-            <Text fontSize={[0]} color="black" fontFamily="Gotham-Book">
+            <Text fontSize={[2]} color="black" fontFamily="Gotham-Book">
               {resto.rating}
             </Text>
           </Container>
-          <Text fontSize={[0]} color="black" fontFamily="Gotham-Book">
+          <Text fontSize={[2]} color="black" fontFamily="Gotham-Book">
             {`${resto.timeAproxMin}-${resto.timeAproxMax} min.`}
           </Text>
         </Container>

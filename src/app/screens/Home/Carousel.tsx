@@ -17,7 +17,7 @@ export default function Carousel(props: Props) {
   return (
     <Container ml={10}>
       <Container height={height * 0.05} justifyContent="center">
-        <Text fontSize={[3]} color="black" fontFamily="Gotham-Bold">
+        <Text fontSize={[5]} color="black" fontFamily="Gotham-Bold">
           {title}
         </Text>
       </Container>

@@ -35,7 +35,7 @@ export default function CategoryCarouselItem(props: Props) {
           bg="rgba(0,0,0,0.1)"
           borderRadius={10}>
           <Text
-            fontSize={[1]}
+            fontSize={[3]}
             color="white"
             letterSpacing={1.5}
             fontFamily="Gotham-Bold">

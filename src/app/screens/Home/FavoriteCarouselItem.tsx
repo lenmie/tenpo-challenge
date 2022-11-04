@@ -47,12 +47,12 @@ export default function FavoriteCarouselItem(props: Props) {
 
         <Container flex={2.3} mx={2} justifyContent="flex-end">
           <Container mb={3}>
-            <Text fontSize={[0]} color="black" fontFamily="Gotham-Book">
+            <Text fontSize={[2]} color="black" fontFamily="Gotham-Book">
               {favorite.mealName}
             </Text>
             <Text
               mt={1}
-              fontSize={[0]}
+              fontSize={[2]}
               color="green.2"
               fontFamily="Gotham-Bold">
               {favorite.chainName}
@@ -69,11 +69,11 @@ export default function FavoriteCarouselItem(props: Props) {
               justifyContent="center"
               alignItems="center">
               <Image margin={1} height={12} width={12} source={icons.star} />
-              <Text fontSize={[0]} color="black" fontFamily="Gotham-Book">
+              <Text fontSize={[2]} color="black" fontFamily="Gotham-Book">
                 {favorite.rating}
               </Text>
             </Container>
-            <Text fontSize={[0]} color="black" fontFamily="Gotham-Book">
+            <Text fontSize={[2]} color="black" fontFamily="Gotham-Book">
               {`${favorite.timeAproxMin}-${favorite.timeAproxMax} min.`}
             </Text>
           </Container>

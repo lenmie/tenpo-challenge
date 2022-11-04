@@ -25,7 +25,7 @@ export default function AddDirectionButton() {
         alignItems="center"
         mb={34}>
         <Image mr={2} source={globals.images.ui.mapIcon} />
-        <Text fontSize={[3]} fontFamily="Gotham-Light" color="green.1">
+        <Text fontSize={[5]} fontFamily="Gotham-Light" color="green.1">
           Agregar direccion de entrega
         </Text>
       </Pressable>

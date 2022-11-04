@@ -14,14 +14,14 @@ export default function HomeTopContainer() {
         <Container flex={3} justifyContent="center">
           <Container ml={10}>
             <Text
-              fontSize={[6]}
+              fontSize={[8]}
               color="black"
               textAlign="left"
               fontFamily="Roboto-Black">
               Tenpo
             </Text>
             <Text
-              fontSize={[6]}
+              fontSize={[8]}
               lineHeight={42}
               textAlign="left"
               fontFamily="Roboto-Black"

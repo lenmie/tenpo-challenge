@@ -5,7 +5,7 @@ export const theme = {
     roboto: 'Roboto',
     gotham: 'Gotham',
   },
-  fontSizes: [12, 14, 16, 18, 24, 32, 42, 64, 72, 96],
+  fontSizes: [8, 10, 12, 14, 16, 18, 24, 32, 42, 64, 72, 96],
   fontWeights: {
     normal: 400,
     bold: 700,
