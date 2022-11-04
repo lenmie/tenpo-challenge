@@ -11,22 +11,25 @@ export default function HomeHeader() {
   return (
     <Container
       width="100%"
+      justifyContent="space-between"
       flexDirection="row"
-      marginTop={10}
-      height={width * 0.11}>
-      <Pressable justifyContent="flex-end" alignItems="flex-end" flex={1}>
+      mt={10}
+      height={width * 0.1}>
+      <Pressable ml={10}>
         <Image
+          resizeMode="contain"
           source={globals.images.ui.userIcon}
           height="100%"
-          width={width * 0.11}
+          width={width * 0.1}
         />
       </Pressable>
-      <Container flex={5} />
-      <Pressable flex={0.8} justifyContent="center">
+      <Pressable mr={10} height="100%">
         <Image
+          mt={-2}
+          resizeMode="contain"
           source={globals.images.ui.searchIcon}
-          height={width * 0.075}
-          width={width * 0.075}
+          height="100%"
+          width={width * 0.06}
         />
       </Pressable>
     </Container>
