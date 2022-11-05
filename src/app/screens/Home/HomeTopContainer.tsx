@@ -45,7 +45,18 @@ export default function HomeTopContainer() {
         borderTopRightRadius={20}
         borderTopLeftRadius={20}
       />
-      <AddDirectionButton />
+      <Container height={60} width="100%" bg="green.0" alignItems="center">
+        <AddDirectionButton />
+      </Container>
+      <Container
+        position="absolute"
+        bottom={0}
+        width="100%"
+        height={20}
+        backgroundColor="white"
+        borderTopRightRadius={20}
+        borderTopLeftRadius={20}
+      />
     </Container>
   );
 }
