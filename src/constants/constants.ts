@@ -3,8 +3,6 @@ import { Dimensions } from 'react-native';
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
-console.log(WINDOW_WIDTH);
-console.log(WINDOW_HEIGHT);
 
 const favoriteItemContainerWidth = 250;
 const favoriteItemContainerHeight = 175;

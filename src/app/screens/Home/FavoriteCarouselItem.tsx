@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Favorite from '../../../model/Favorite';
-import dimensions from '../../../constants/constants';
 import { Text } from '../../components/Text.styled';
 import { Container } from '../../components/Container.styled';
 import { Image } from '../../components/Image.styled';
@@ -13,13 +12,14 @@ interface Props {
   item: Favorite;
 }
 
+const containerWidth = 272;
+const containerHeight = 160;
+
 export default function FavoriteCarouselItem(props: Props) {
   const favorite = props.item;
 
   return (
-    <Container
-      width={dimensions.favoriteItemContainerWidth}
-      height={dimensions.favoriteItemContainerHeight}>
+    <Container width={containerWidth} height={containerHeight} mb={10}>
       <TouchableOpacity activeOpacity={0.7} style={styles.cardContainer}>
         <ImageBackground
           imageStyle={styles.backgroundImage}
@@ -88,11 +88,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 15,
     elevation: 2,
-    width: '95%',
-    height: '85%',
+    flex: 1,
   },
   backgroundImage: {
-    flex: 1,
+    resizeMode: 'cover',
     borderTopLeftRadius: 9,
     borderTopRightRadius: 9,
   },

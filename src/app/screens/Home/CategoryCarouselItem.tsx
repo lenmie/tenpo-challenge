@@ -9,8 +9,8 @@ interface Props {
   item: Category;
 }
 
-const cardContainerWidth = 160;
-const cardContainerHeight = 80;
+const cardContainerWidth = 180;
+const cardContainerHeight = 100;
 
 export default function CategoryCarouselItem(props: Props) {
   const category = props.item;
@@ -21,14 +21,13 @@ export default function CategoryCarouselItem(props: Props) {
       width={cardContainerWidth}
       height={cardContainerHeight}>
       <ImageBackground
-        mr={10}
         flex={1}
         alignItems="center"
         justifyContent="center"
         source={category.imageSource}
         resizeMode="contain">
         <Container
-          height="82%"
+          height="75%"
           width="100%"
           justifyContent="center"
           alignItems="center"

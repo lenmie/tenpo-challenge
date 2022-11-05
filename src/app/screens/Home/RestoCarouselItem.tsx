@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import dimensions from '../../../constants/constants';
 import icons from '../../../constants/icons';
 import Resto from '../../../model/Resto';
 import { Container } from '../../components/Container.styled';
 import { Image } from '../../components/Image.styled';
+import { Pressable } from '../../components/Pressable.styled';
 import { Text } from '../../components/Text.styled';
 
 interface Props {
@@ -12,11 +11,19 @@ interface Props {
 }
 const DCTO = 'DCTO';
 
+const containerHeight = 115;
+const containerWidth = 168;
+
+
 export default function RestoCarouselItem(props: Props) {
   const resto = props.item;
 
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.8}>
+    <Pressable
+      width={containerHeight}
+      height={containerWidth}
+      alignItems="center"
+      activeOpacity={0.8}>
       <Container height={110} width={110}>
         <Image
           height="98%"
@@ -24,7 +31,7 @@ export default function RestoCarouselItem(props: Props) {
           borderRadius={10}
           position="absolute"
           top={5}
-          right={8}
+          right={4}
           overflow="hidden"
           source={resto.logoImageSource}
           resizeMode="contain"
@@ -80,30 +87,6 @@ export default function RestoCarouselItem(props: Props) {
           </Text>
         </Container>
       </Container>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: dimensions.restoItemContainerWidth,
-    height: dimensions.restoItemContainerHeight,
-    alignItems: 'center',
-  },
-  chainNameContainer: {
-    marginTop: 7,
-  },
-  chainName: {
-    fontSize: 14,
-    textAlign: 'center',
-    fontFamily: 'Gotham-Book',
-  },
-  detailContainer: {
-    flexDirection: 'row',
-    flex: 1,
-    width: '100%',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    marginVertical: 2,
-  },
-});
