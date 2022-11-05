@@ -1,9 +1,11 @@
 import React from 'react';
 import Category from '../../../model/Category';
-import { Container } from '../../components/Container.styled';
-import { ImageBackground } from '../../components/ImageBackground.styled';
-import { Pressable } from '../../components/Pressable.styled';
-import { Text } from '../../components/Text.styled';
+import {
+  Container,
+  ImageBackground,
+  Pressable,
+  Text,
+} from '../../components/baseComponents';
 
 interface Props {
   item: Category;

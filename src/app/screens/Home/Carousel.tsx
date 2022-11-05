@@ -1,8 +1,6 @@
 import React from 'react';
 import { Dimensions, FlatList } from 'react-native';
-import { Box } from '../../components/Box';
-import { Container } from '../../components/Container.styled';
-import { Text } from '../../components/Text.styled';
+import { Box, Container, Text } from '../../components/baseComponents';
 
 const { height } = Dimensions.get('screen');
 

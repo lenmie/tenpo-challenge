@@ -1,9 +1,7 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 import globals from '../../../constants/globals';
-import { Container } from '../../components/Container.styled';
-import { Image } from '../../components/Image.styled';
-import { Pressable } from '../../components/Pressable.styled';
+import { Container, Image, Pressable } from '../../components/baseComponents';
 
 const { width } = Dimensions.get('screen');
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 import globals from '../../../constants/globals';
-import { Container } from '../../components/Container.styled';
-import { Image } from '../../components/Image.styled';
+import { Container, Image } from '../../components/baseComponents';
 const { width, height } = Dimensions.get('screen');
 
 export default function HomeMainImage() {

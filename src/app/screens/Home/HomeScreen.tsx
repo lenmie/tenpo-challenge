@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { StackParamList } from '../../../navigation/AppNavigator';
-import { Container } from '../../components/Container.styled';
+import { Container } from '../../components/baseComponents';
 import HomeContentContainer from './HomeContentContainer';
 import HomeTopContainer from './HomeTopContainer';
 

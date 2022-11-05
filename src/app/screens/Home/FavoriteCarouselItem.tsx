@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Favorite from '../../../model/Favorite';
-import { Text } from '../../components/Text.styled';
-import { Container } from '../../components/Container.styled';
-import { Image } from '../../components/Image.styled';
 import icons from '../../../constants/icons';
-import { ImageBackground } from '../../components/ImageBackground.styled';
-import { Box } from '../../components/Box';
+import {
+  Box,
+  Container,
+  Image,
+  ImageBackground,
+  Text,
+} from '../../components/baseComponents';
 
 interface Props {
   item: Favorite;

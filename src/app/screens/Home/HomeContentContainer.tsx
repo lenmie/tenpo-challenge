@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CategoryService from '../../../services/CategoryService';
 import FavoriteService from '../../../services/FavoriteService';
 import RestoService from '../../../services/RestoService';
-import { Container } from '../../components/Container.styled';
+import { Container } from '../../components/baseComponents';
 import Carousel from './Carousel';
 import CategoryCarouselItem from './CategoryCarouselItem';
 import FavoriteCarouselItem from './FavoriteCarouselItem';

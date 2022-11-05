@@ -1,10 +1,7 @@
 import React from 'react';
 import icons from '../../../constants/icons';
 import Resto from '../../../model/Resto';
-import { Container } from '../../components/Container.styled';
-import { Image } from '../../components/Image.styled';
-import { Pressable } from '../../components/Pressable.styled';
-import { Text } from '../../components/Text.styled';
+import { Container, Image, Pressable, Text } from '../../components/baseComponents';
 
 interface Props {
   item: Resto;
@@ -13,7 +10,6 @@ const DCTO = 'DCTO';
 
 const containerHeight = 115;
 const containerWidth = 168;
-
 
 export default function RestoCarouselItem(props: Props) {
   const resto = props.item;

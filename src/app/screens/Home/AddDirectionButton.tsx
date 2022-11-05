@@ -1,10 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import globals from '../../../constants/globals';
-import { Container } from '../../components/Container.styled';
-import { Image } from '../../components/Image.styled';
-import { Pressable } from '../../components/Pressable.styled';
-import { Text } from '../../components/Text.styled';
+import {
+  Container,
+  Image,
+  Pressable,
+  Text,
+} from '../../components/baseComponents';
 
 export default function AddDirectionButton() {
   const navigation = useNavigation();

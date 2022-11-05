@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container } from '../../components/Container.styled';
-import { Text } from '../../components/Text.styled';
+import { Container, Text } from '../../components/baseComponents';
 
 export default function HomeTitle() {
   return (
