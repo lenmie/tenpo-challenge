@@ -25,12 +25,12 @@ export default function FavoriteCarouselItem(props: Props) {
       <TouchableOpacity activeOpacity={0.7} style={styles.cardContainer}>
         <ImageBackground
           imageStyle={styles.backgroundImage}
-          source={favorite.mealImageSource}
+          source={{ uri: favorite.mealImageSource }}
           flex={4}
           resizeMode="contain">
           <Container flexDirection="row" justifyContent="space-between" mt={2}>
             <Image
-              source={favorite.logoImageSource}
+              source={{ uri: favorite.logoImageSource }}
               resizeMode="contain"
               height={40}
               width={40}

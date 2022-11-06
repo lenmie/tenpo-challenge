@@ -18,7 +18,7 @@ const containerWidth = 168;
 
 export default function RestoCarouselItem(props: Props) {
   const resto = props.item;
-
+  console.log(resto.logoImageSource);
   return (
     <Pressable
       width={containerHeight}
@@ -34,7 +34,7 @@ export default function RestoCarouselItem(props: Props) {
           top={5}
           right={4}
           overflow="hidden"
-          source={resto.logoImageSource}
+          source={{ uri: resto.logoImageSource }}
           resizeMode="contain"
         />
         {!!resto.discount && (

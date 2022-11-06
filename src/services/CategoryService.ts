@@ -1,30 +1,12 @@
-import globals from '../constants/globals';
-import Category from '../model/Category';
+import { API_URL } from '../constants/env';
 
-const cates: Category[] = [
-  {
-    id: '1C',
-    name: 'HAMBURGUESAS',
-    imageSource: globals.images.cagetory.hamburger,
-  },
-  {
-    id: '2C',
-    name: 'ITALIANA',
-    imageSource: globals.images.cagetory.italian,
-  },
-  {
-    id: '3C',
-    name: 'PIZZAS',
-    imageSource: globals.images.cagetory.pizza,
-  },
-];
+const getCategories = async (): Promise<any[]> =>
+  await fetch(`${API_URL}/category`).then(async response => {
+    const result = await response.json();
 
-class CategoryService {
-  async getCategories(): Promise<Category[]> {
-    return new Promise(resolve => {
-      resolve(cates.map(cat => new Category(cat)));
-    });
-  }
-}
+    return result;
+  });
 
-export default new CategoryService();
+export const CategoryService = {
+  getCategories,
+};

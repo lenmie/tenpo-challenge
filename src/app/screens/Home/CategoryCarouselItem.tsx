@@ -26,7 +26,7 @@ export default function CategoryCarouselItem(props: Props) {
         flex={1}
         alignItems="center"
         justifyContent="center"
-        source={category.imageSource}
+        source={{ uri: category.imageSource }}
         resizeMode="contain">
         <Container
           height="75%"

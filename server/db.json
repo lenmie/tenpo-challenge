@@ -1,0 +1,83 @@
+{
+  "restos": [
+    {
+      "id": "1R",
+      "name": "McDonalds",
+      "rating": 3.5,
+      "timeAproxMin": 10,
+      "timeAproxMax": 50,
+      "discount": 50,
+      "logoImageSource": "http://localhost:8000/static/chainlogo/mcdonalds.png",
+      "location": "Av. Francisco Bilbao 3975, La Reina"
+    },
+    {
+      "id": "2R",
+      "name": "Melt Pizzas",
+      "rating": 4.5,
+      "timeAproxMin": 10,
+      "timeAproxMax": 60,
+      "discount": 30,
+      "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png",
+      "location": "Av. Francisco Bilbao 3975, La Reina"
+    },
+    {
+      "id": "3R",
+      "name": "YOKONO",
+      "rating": 3.5,
+      "timeAproxMin": 10,
+      "timeAproxMax": 50,
+      "discount": 50,
+      "logoImageSource": "http://localhost:8000/static/chainlogo/yokono.png",
+      "location": "Av. Francisco Bilbao 3975, La Reina"
+    },
+    {
+      "id": "4R",
+      "name": "Papa John's",
+      "rating": 4.1,
+      "timeAproxMin": 10,
+      "timeAproxMax": 60,
+      "discount": 0,
+      "logoImageSource": "http://localhost:8000/static/chainlogo/papajohns.png",
+      "location": "Av. Francisco Bilbao 3975, La Reina"
+    }
+  ],
+  "category": [
+   {
+      "id": "1C",
+      "name": "HAMBURGUESAS",
+      "imageSource": "http://localhost:8000/static/category/hamburger.png"
+    },
+    {
+      "id": "2C",
+      "name": "ITALIANA",
+      "imageSource": "http://localhost:8000/static/category/italian.png"
+    },
+    {
+      "id": "3C",
+      "name": "PIZZAS",
+      "imageSource": "http://localhost:8000/static/category/pizza.png"
+    }    
+  ],
+  "favorite": [
+   {
+      "id": "1F",
+      "mealName": "Combo Hamburguesa Big Mac",
+      "chainName": "McDonalds",
+      "rating": 3.5,
+      "timeAproxMin": 10,
+      "timeAproxMax": 50,
+      "mealImageSource": "http://localhost:8000/static/favorite/mcdonalds_hamburger.png",
+      "logoImageSource": "http://localhost:8000/static/chainlogo/mcdonalds.png"
+    },
+    {
+      "id": "2F",
+      "mealName": "Pizza Mediana",
+      "chainName": "MELT pizzas",
+      "rating": 3.5,
+      "timeAproxMin": 10,
+      "timeAproxMax": 60,
+      "mealImageSource": "http://localhost:8000/static/favorite/melt_pizza.png",
+      "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png"
+    }
+ ]
+}

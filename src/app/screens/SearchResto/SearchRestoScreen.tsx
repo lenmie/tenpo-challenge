@@ -4,7 +4,7 @@ import { FlatList, StyleSheet } from 'react-native';
 import icons from '../../../constants/icons';
 import { theme } from '../../../constants/theme';
 import { StackParamList } from '../../../navigation/AppNavigator';
-import RestoService from '../../../services/RestoService';
+import { RestoService } from '../../../services/RestoService';
 import {
   Box,
   Container,
