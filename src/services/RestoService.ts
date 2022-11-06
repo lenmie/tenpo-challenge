@@ -10,15 +10,17 @@ const restos: Resto[] = [
     timeAproxMax: 50,
     discount: 50,
     logoImageSource: globals.images.chainLogo.mcdonalds,
+    location: 'Av. Francisco Bilbao 3975, La Reina',
   },
   {
     id: '2R',
-    name: 'MELT pizzas',
+    name: 'Melt Pizzas',
     rating: 4.5,
     timeAproxMin: 10,
     timeAproxMax: 60,
     discount: 30,
     logoImageSource: globals.images.chainLogo.melt,
+    location: 'Av. Francisco Bilbao 3975, La Reina',
   },
   {
     id: '3R',
@@ -28,6 +30,7 @@ const restos: Resto[] = [
     timeAproxMax: 50,
     discount: 50,
     logoImageSource: globals.images.chainLogo.yokono,
+    location: 'Av. Francisco Bilbao 3975, La Reina',
   },
   {
     id: '4R',
@@ -37,6 +40,7 @@ const restos: Resto[] = [
     timeAproxMax: 60,
     discount: 0,
     logoImageSource: globals.images.chainLogo.papajohns,
+    location: 'Av. Francisco Bilbao 3975, La Reina',
   },
 ];
 

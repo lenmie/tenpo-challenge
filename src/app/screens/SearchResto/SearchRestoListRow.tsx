@@ -10,7 +10,7 @@ const BUTTON = 'AGREGAR DIRECCION';
 
 const textInputHeight = 100;
 
-export default function DeliveryPointDetail() {
+export default function SearchRestoListRow() {
   return (
     <Container bg="white" height="100%" width="100%">
       <Container pl={15}>

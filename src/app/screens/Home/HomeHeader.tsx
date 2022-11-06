@@ -1,11 +1,14 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import globals from '../../../constants/globals';
+import icons from '../../../constants/icons';
 import { Container, Image, Pressable } from '../../components/baseComponents';
 
 const { width } = Dimensions.get('screen');
 
 export default function HomeHeader() {
+  const navigation = useNavigation();
   return (
     <Container
       width="100%"
@@ -21,11 +24,14 @@ export default function HomeHeader() {
           width={width * 0.1}
         />
       </Pressable>
-      <Pressable mr={10} height="100%">
+      <Pressable
+        onPress={() => navigation.push('SearchResto')}
+        mr={10}
+        height="100%">
         <Image
           mt={-2}
           resizeMode="contain"
-          source={globals.images.ui.searchIcon}
+          source={icons.search}
           height="100%"
           width={width * 0.06}
         />

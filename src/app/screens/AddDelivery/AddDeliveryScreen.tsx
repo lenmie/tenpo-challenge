@@ -40,7 +40,7 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   addDirectionInput: {
     padding: 15,
-    borderRadius: 25,
+    borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 2,

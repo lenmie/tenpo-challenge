@@ -1,7 +1,12 @@
 import React from 'react';
 import icons from '../../../constants/icons';
 import Resto from '../../../model/Resto';
-import { Container, Image, Pressable, Text } from '../../components/baseComponents';
+import {
+  Container,
+  Image,
+  Pressable,
+  Text,
+} from '../../components/baseComponents';
 
 interface Props {
   item: Resto;
