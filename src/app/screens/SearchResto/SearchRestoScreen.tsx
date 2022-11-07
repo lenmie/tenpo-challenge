@@ -14,7 +14,6 @@ import {
   Text,
 } from '../../components/baseComponents';
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
-import SearchRestoListRow from './SearchRestoListRow';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
@@ -254,6 +253,10 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 50,
     elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
     height: directionInputHeight,
     width: '100%',
     backgroundColor: theme.colors.white,
@@ -263,6 +266,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
     marginTop: 30,
     height: 40,
     width: '70%',

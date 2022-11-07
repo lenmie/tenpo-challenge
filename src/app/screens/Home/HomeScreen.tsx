@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView } from 'react-native';
 import { StackParamList } from '../../../navigation/AppNavigator';
 import { Container } from '../../components/baseComponents';

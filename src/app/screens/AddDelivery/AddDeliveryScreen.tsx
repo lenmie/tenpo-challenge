@@ -1,10 +1,10 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Geolocation from '@react-native-community/geolocation';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PermissionsAndroid, StyleSheet } from 'react-native';
 import { theme } from '../../../constants/theme';
 import { StackParamList } from '../../../navigation/AppNavigator';
-import { Container, Text } from '../../components/baseComponents';
+import { Container, Image, Text } from '../../components/baseComponents';
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
 import AddDirectionButton from '../Home/AddDirectionButton';
 import DeliveryPointDetail from './DeliveryPointDetail';
@@ -13,6 +13,9 @@ import { position } from 'styled-system';
 import icons from '../../../constants/icons';
 import { Marker } from 'react-native-maps';
 import { MapsService } from '../../../services/MapsService';
+import { UserContext } from '../../UserContext';
+import { formatStreetString } from '../../utils/utils';
+import globals from '../../../constants/globals';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
@@ -20,11 +23,14 @@ const directionInputHeight = 70;
 const DIRECTION_INPUT_PLACEHOLDER = 'Escribe tu direccion';
 const WAITING_PERMISSION = 'Esperando tu ubicacion';
 const PERMISSION_DENIED = 'Permite a Tenpo acceder a tu ubicacion para seguir';
+const TITLE = 'Agregar direccion de entrega';
+
 export default function AddDeliveryScreen({ navigation, route }: Props) {
   const [grantedPermission, setGrantedPermission] = useState(false);
   const [waitingForPermission, setWaitingForPermission] = useState(true);
   const [currentPosition, setCurrentPosition] = useState(null);
-  const [address, setAdress] = useState(DIRECTION_INPUT_PLACEHOLDER);
+  const [address, setAddress] = useState(DIRECTION_INPUT_PLACEHOLDER);
+  const { userAddress, setUserAddress } = useContext(UserContext);
 
   useEffect(() => {
     requestCameraPermission();
@@ -39,7 +45,7 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
 
   const getAdress = async location => {
     MapsService.getLocationAddress(location.latitude, location.longitude).then(
-      street => setAdress(street),
+      street => setAddress(street),
     );
   };
 
@@ -48,10 +54,8 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         {
-          title: 'Cool Photo App Camera Permission',
-          message:
-            'Cool Photo App needs access to your camera ' +
-            'so you can take awesome pictures.',
+          title: 'Tenpo Location Permission',
+          message: 'Tenpo needs access to your location ',
           buttonNeutral: 'Ask Me Later',
           buttonNegative: 'Cancel',
           buttonPositive: 'OK',
@@ -78,7 +82,15 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
         bg="green.0"
         alignItems="center"
         justifyContent="center">
-        <AddDirectionButton disabled />
+        <Container
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center">
+          <Image mr={2} source={globals.images.ui.mapIcon} />
+          <Text fontSize={[5]} fontFamily="Gotham-Light" color="green.1">
+            {TITLE}
+          </Text>
+        </Container>
       </Container>
       {waitingForPermission && (
         <Text
@@ -103,13 +115,18 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
       )}
       <Container top={70} width="100%" position="absolute">
         <TextInput
-          value={`${address.slice(0, 40)}...`}
+          value={formatStreetString(address)}
           textAlignVertical="center"
           style={styles.addDirectionInput}
           placeholder={DIRECTION_INPUT_PLACEHOLDER}
         />
       </Container>
-      <DeliveryPointDetail />
+      <DeliveryPointDetail
+        onPress={() => {
+          setUserAddress(address);
+          navigation.pop();
+        }}
+      />
     </Container>
   );
 }
@@ -121,6 +138,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
     height: directionInputHeight,
     width: '100%',
     backgroundColor: theme.colors.white,

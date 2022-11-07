@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useContext } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { theme } from '../../../constants/theme';
 import { Container, Text } from '../../components/baseComponents';
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
+import { UserContext } from '../../UserContext';
 
 const TILE = 'Agregar informacion de entrega';
 const SUBTITLE = 'Depto, Oficina, Piso, Block';
@@ -10,7 +12,13 @@ const BUTTON = 'AGREGAR DIRECCION';
 
 const textInputHeight = 100;
 
-export default function DeliveryPointDetail() {
+interface Props {
+  onPress: Function;
+}
+
+export default function DeliveryPointDetail({ onPress }: Props) {
+  const [deliveryInfo, setDeliveryInfo] = useState<string>();
+
   return (
     <Container bg="white" height="100%" width="100%">
       <Container pl={15}>
@@ -23,6 +31,8 @@ export default function DeliveryPointDetail() {
       </Container>
       <Container pt={15} alignItems="center">
         <TextInput
+          value={deliveryInfo}
+          onChangeText={setDeliveryInfo}
           multiline
           width="92%"
           padding={3}
@@ -34,7 +44,7 @@ export default function DeliveryPointDetail() {
           style={styles.textInput}
         />
 
-        <TouchableOpacity style={styles.addDirectionButton}>
+        <TouchableOpacity style={styles.addDirectionButton} onPress={onPress}>
           <Text fontSize={[3]} fontFamily="Gotham-Bold" color="white">
             {BUTTON}
           </Text>
@@ -53,9 +63,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
     marginTop: 30,
     height: 50,
     width: '80%',
-    backgroundColor: theme.colors.green[2] ,
+    backgroundColor: theme.colors.green[2],
   },
 });

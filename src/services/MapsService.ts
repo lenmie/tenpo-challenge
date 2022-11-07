@@ -3,7 +3,7 @@ import {
   GOOGLE_MAPS_GEOCODING_URL,
 } from '../constants/env';
 
-async function getLocationAddress(lat: number, long: number): Promise<strign> {
+async function getLocationAddress(lat: number, long: number): Promise<string> {
   try {
     const url = `${GOOGLE_MAPS_GEOCODING_URL}?latlng=${lat},${long}&key=${GOOGLE_MAPS_API_KEY}`;
 
