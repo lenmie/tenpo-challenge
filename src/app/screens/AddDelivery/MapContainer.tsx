@@ -1,7 +1,8 @@
 import React from 'react';
 import { AddressMap, Container } from './MapContainer.styled';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 import { StyleSheet } from 'react-native';
+import icons from '../../../constants/icons';
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
@@ -15,7 +16,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function MapContainer() {
+export default function MapContainer(props) {
+  const { position } = props;
+
   return (
     <Container>
       {/* <AddressMap
@@ -31,11 +34,23 @@ export default function MapContainer() {
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
         region={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
-        }}></MapView>
+          latitude: position.latitude + 0.00075,
+          longitude: position.longitude,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        }}>
+        <Marker
+          key={'carlos'}
+          coordinate={{
+            latitude: position.latitude,
+            longitude: position.longitude,
+          }}
+          title={'title'}
+          description={'description'}
+          image={icons.star}
+        />
+        {props.children}
+      </MapView>
     </Container>
   );
 }

@@ -18,7 +18,6 @@ const containerWidth = 168;
 
 export default function RestoCarouselItem(props: Props) {
   const resto = props.item;
-  console.log(resto.logoImageSource);
   return (
     <Pressable
       width={containerHeight}

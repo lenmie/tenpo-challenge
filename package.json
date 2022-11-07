@@ -13,6 +13,7 @@
   "dependencies": {
     "@emotion/native": "^11.10.0",
     "@emotion/react": "^11.10.5",
+    "@react-native-community/geolocation": "^3.0.3",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
     "@types/styled-system": "^5.1.15",

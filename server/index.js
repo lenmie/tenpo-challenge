@@ -48,7 +48,7 @@ server.get('/search', (req, res) => {
   if (!query.toLowerCase().includes(MELT_QUERY)) return [];
   if (reqAmountToErrorCounter <= 0) {
     reqAmountToErrorCounter = 5;
-    console.log('error');
+    console.log('mock error dispatched');
 
     return res.status(500).jsonp({
       error: 'mock internal server error',
@@ -67,7 +67,6 @@ server.get('/search', (req, res) => {
   }
 
   reqAmountToErrorCounter--;
-  console.log(payload);
   res.jsonp(payload);
 });
 // server.post('/battle', (req, res) => {
