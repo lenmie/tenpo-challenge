@@ -45,7 +45,7 @@
    {
       "id": "1C",
       "name": "HAMBURGUESAS",
-      "imageSource": "http://localhost:8000/static/category/hamburger.png"
+      "imageSource": "http://localhost:8000/static/category/hamburger2.png"
     },
     {
       "id": "2C",
@@ -66,7 +66,7 @@
       "rating": 3.5,
       "timeAproxMin": 10,
       "timeAproxMax": 50,
-      "mealImageSource": "http://localhost:8000/static/favorite/mcdonalds_hamburger.png",
+      "mealImageSource": "http://localhost:8000/static/favorite/mcdonalds_hamburger2.png",
       "logoImageSource": "http://localhost:8000/static/chainlogo/mcdonalds.png"
     },
     {
@@ -76,7 +76,7 @@
       "rating": 3.5,
       "timeAproxMin": 10,
       "timeAproxMax": 60,
-      "mealImageSource": "http://localhost:8000/static/favorite/melt_pizza.png",
+      "mealImageSource": "http://localhost:8000/static/favorite/melt_pizza2.png",
       "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png"
     }
  ],

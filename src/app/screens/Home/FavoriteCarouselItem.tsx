@@ -14,8 +14,8 @@ interface Props {
   item: Favorite;
 }
 
-const containerWidth = 272;
-const containerHeight = 160;
+const containerWidth = 266;
+const containerHeight = 150;
 
 export default function FavoriteCarouselItem(props: Props) {
   const favorite = props.item;
@@ -26,8 +26,12 @@ export default function FavoriteCarouselItem(props: Props) {
         <ImageBackground
           imageStyle={styles.backgroundImage}
           source={{ uri: favorite.mealImageSource }}
-          flex={4}
-          resizeMode="contain">
+          borderTopLeftRadius={15}
+          borderTopRightRadius={15}
+          height="78%"
+          width="100%"
+          backgroundColor="white"
+          resizeMode="cover">
           <Container flexDirection="row" justifyContent="space-between" mt={2}>
             <Image
               source={{ uri: favorite.logoImageSource }}
@@ -47,7 +51,7 @@ export default function FavoriteCarouselItem(props: Props) {
           </Container>
         </ImageBackground>
 
-        <Container flex={2.3} mx={2} justifyContent="flex-end">
+        <Container mx={2} mt={-2} justifyContent="flex-end">
           <Container mb={3}>
             <Text fontSize={[2]} color="black" fontFamily="Gotham-Book">
               {favorite.mealName}
@@ -94,11 +98,9 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 2,
-    flex: 1,
   },
   backgroundImage: {
-    resizeMode: 'cover',
-    borderTopLeftRadius: 9,
-    borderTopRightRadius: 9,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
 });

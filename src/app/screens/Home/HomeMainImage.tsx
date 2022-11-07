@@ -6,7 +6,7 @@ const { width, height } = Dimensions.get('screen');
 
 export default function HomeMainImage() {
   return (
-    <Container flex={2} flexDirection="row">
+    <Container mr={2} flexDirection="row">
       <Image
         mb={-4}
         resizeMode="contain"
@@ -16,6 +16,7 @@ export default function HomeMainImage() {
       />
       <Container justifyContent="flex-end">
         <Image
+          resizeMode="contain"
           mb={2}
           source={globals.images.ui.dotsIcon}
           height={height * 0.008}

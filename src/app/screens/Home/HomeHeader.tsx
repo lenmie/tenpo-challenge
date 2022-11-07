@@ -29,11 +29,11 @@ export default function HomeHeader() {
         mr={10}
         height="100%">
         <Image
-          mt={-2}
+          mr={1}
           resizeMode="contain"
           source={icons.search}
           height="100%"
-          width={width * 0.06}
+          width={30}
         />
       </Pressable>
     </Container>
