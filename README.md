@@ -3,6 +3,8 @@
 
 Food Delivery mobile app
 
+UI model: https://xd.adobe.com/view/f54f4021-662d-463e-62df-5f9bcfd1b411-837e/
+
 ## Installation
 
 After cloning the project, move to its root folder and then run
