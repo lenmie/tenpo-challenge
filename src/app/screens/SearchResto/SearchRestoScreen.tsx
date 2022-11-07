@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import icons from '../../../constants/icons';
 import { theme } from '../../../constants/theme';
@@ -14,6 +14,7 @@ import {
   Text,
 } from '../../components/baseComponents';
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
+import { UserContext } from '../../UserContext';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
@@ -36,6 +37,7 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
   const [searchInput, setSearchInput] = useState('');
   const [activeInput, setActiveInput] = useState(false);
   const [errorStatus, setErrorStatus] = useState('');
+  const { userAddress } = useContext(UserContext);
 
   const mockSearch = () => {
     setErrorStatus('');
@@ -66,12 +68,16 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
             alignItems="center">
             <Image height={22} width={22} mr={3} source={icons.leftArrow} />
           </Pressable>
-          <Container>
+          <Container width="76%">
             <Text fontSize={[1]} fontFamily="Gotham-Bold" color="green.3">
               {NEAR_YOU_LOCATION}
             </Text>
-            <Text fontSize={[5]} fontFamily="Gotham-Light" color="green.1">
-              {DIRECTION_PLACEHOLDER}
+            <Text
+              numberOfLines={1}
+              fontSize={[5]}
+              fontFamily="Gotham-Light"
+              color="green.1">
+              {userAddress ? userAddress : DIRECTION_PLACEHOLDER}
             </Text>
           </Container>
         </Container>
