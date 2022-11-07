@@ -1,8 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import icons from '../../../constants/icons';
 import { theme } from '../../../constants/theme';
+import Resto from '../../../model/Resto';
 import { StackParamList } from '../../../navigation/AppNavigator';
 import { RestoService } from '../../../services/RestoService';
 import {
@@ -19,9 +20,10 @@ type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
 const NEAR_YOU_LOCATION = 'Tu ubicacion cercana';
 const DIRECTION_PLACEHOLDER = 'Calle Agustinas #546';
-const DIRECTION_INPUT_PLACEHOLDER = 'Escribe tu direccion';
+const DIRECTION_INPUT_PLACEHOLDER = 'Escribe nombre del restaurante que buscas';
 const OPEN_STORES = 'Solo locales abiertos';
 const SEARCH_AREA = 'Area de Busqueda:';
+const TRY_AGAIN = 'REINTENTAR';
 
 const directionInputHeight = 70;
 const headerHeight = 150;
@@ -31,9 +33,21 @@ const inputOffset = 30;
 export default function SearchRestoScreen({ navigation, route }: Props) {
   const [areaKm, setAreaKm] = useState(1);
   const [openStoresFilter, setOpenStoresFilter] = useState(true);
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<Resto[]>([]);
+  const [searchInput, setSearchInput] = useState('');
+  const [activeInput, setActiveInput] = useState(false);
+  const [errorStatus, setErrorStatus] = useState('');
 
-  const mockSearch = () => RestoService.getRestos().then(setResults);
+  const mockSearch = () => {
+    setErrorStatus('');
+    RestoService.searchResto(searchInput).then(response => {
+      if (typeof response === 'string') {
+        setErrorStatus(response);
+        return;
+      }
+      setResults(response);
+    });
+  };
 
   return (
     <Container width="100%" height="100%" bg="white">
@@ -116,28 +130,35 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
 
       <Container style={styles.addDirectionInput}>
         <TextInput
+          value={searchInput}
+          onChangeText={setSearchInput}
+          onFocus={() => setActiveInput(true)}
+          onBlur={() => setActiveInput(false)}
+          onSubmitEditing={mockSearch}
           textAlignVertical="center"
           fontFamily="Gotham-Light"
           color="black"
-          width="85%"
-          fontSize={16}
-          placeholder={DIRECTION_INPUT_PLACEHOLDER}
+          width={activeInput ? '100%' : '85%'}
+          fontSize={[3]}
+          placeholder={activeInput ? DIRECTION_INPUT_PLACEHOLDER : ''}
         />
       </Container>
 
-      <Container
-        right={10}
-        top={headerHeight - inputOffset}
-        position="absolute">
-        <Pressable
-          onPress={mockSearch}
-          justifyContent="center"
-          alignItems="center"
-          height={70}
-          width={70}>
-          <Image height={32} width={32} source={icons.search} />
-        </Pressable>
-      </Container>
+      {activeInput ? null : (
+        <Container
+          right={10}
+          top={headerHeight - inputOffset}
+          position="absolute">
+          <Pressable
+            onPress={mockSearch}
+            justifyContent="center"
+            alignItems="center"
+            height={70}
+            width={70}>
+            <Image height={32} width={32} source={icons.search} />
+          </Pressable>
+        </Container>
+      )}
 
       {!openStoresFilter && (
         <Container flex={1}>
@@ -161,7 +182,35 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
         </Container>
       )}
 
-      {openStoresFilter && !!results.length && (
+      {!!errorStatus.length && (
+        <Container flex={1}>
+          <Container
+            mt={150}
+            mx={30}
+            justifyContent="center"
+            alignItems="center">
+            <Text fontSize={[3]} color="green.2" fontFamily="Gotham-Bold">
+              Lo sentimos
+            </Text>
+            <Text
+              textAlign="center"
+              fontSize={[5]}
+              color="grey.1"
+              fontFamily="Gotham-Light">
+              {errorStatus}
+            </Text>
+            <TouchableOpacity
+              style={styles.addDirectionButton}
+              onPress={mockSearch}>
+              <Text fontSize={[3]} fontFamily="Gotham-Bold" color="white">
+                {TRY_AGAIN}
+              </Text>
+            </TouchableOpacity>
+          </Container>
+        </Container>
+      )}
+
+      {!errorStatus.length && openStoresFilter && !!results.length && (
         <FlatList
           data={results}
           ItemSeparatorComponent={() => (
@@ -180,7 +229,7 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
                 width={50}
                 height={50}
                 mx={10}
-                source={item.logoImageSource}
+                source={{ uri: item.logoImageSource }}
               />
               <Container>
                 <Text fontSize={[4]} color="black" fontFamily="Roboto-Regular">
@@ -208,5 +257,15 @@ const styles = StyleSheet.create({
     height: directionInputHeight,
     width: '100%',
     backgroundColor: theme.colors.white,
+  },
+  addDirectionButton: {
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 2,
+    marginTop: 30,
+    height: 40,
+    width: '70%',
+    backgroundColor: theme.colors.green[2],
   },
 });

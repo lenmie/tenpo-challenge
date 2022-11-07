@@ -79,5 +79,47 @@
       "mealImageSource": "http://localhost:8000/static/favorite/melt_pizza.png",
       "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png"
     }
+ ],
+ "search": [
+  {
+    "id": "1MELT",
+    "name": "Melt Bilbao",
+    "rating": 4.5,
+    "timeAproxMin": 10,
+    "timeAproxMax": 60,
+    "discount": 30,
+    "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png",
+    "location": "Av. Francisco Bilbao 3975, La Reina"
+  },
+  {
+    "id": "2MELT",
+    "name": "Melt Pajaritos",
+    "rating": 4.5,
+    "timeAproxMin": 10,
+    "timeAproxMax": 60,
+    "discount": 30,
+    "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png",
+    "location": "Americo Vespucio 51 - Local 128, Pajaritos, Maipi"
+  },
+  {
+    "id": "3MELT",
+    "name": "Melt Barrio Brasil",
+    "rating": 4.5,
+    "timeAproxMin": 10,
+    "timeAproxMax": 60,
+    "discount": 30,
+    "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png",
+    "location": "Compania de Jesus 1909, Santiago"
+  },
+  {
+    "id": "4MELT",
+    "name": "Melt El Bosque",
+    "rating": 4.5,
+    "timeAproxMin": 10,
+    "timeAproxMax": 60,
+    "discount": 30,
+    "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png",
+    "location": "Callao 2912, Las Condes"
+  }
  ]
 }

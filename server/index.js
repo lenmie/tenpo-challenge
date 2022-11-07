@@ -7,6 +7,9 @@ const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 const data = require('./db.json');
 
+let reqAmountToErrorCounter = 5;
+const MELT_QUERY = 'melt';
+
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 server.use((req, res, next) => {
@@ -37,6 +40,35 @@ server.get('/category', (req, res) => {
 
 server.get('/favorite', (req, res) => {
   res.jsonp(data.favorite);
+});
+
+server.get('/search', (req, res) => {
+  const { query, area } = req.query;
+  const payload = [];
+  if (!query.toLowerCase().includes(MELT_QUERY)) return [];
+  if (reqAmountToErrorCounter <= 0) {
+    reqAmountToErrorCounter = 5;
+    console.log('error');
+
+    return res.status(500).jsonp({
+      error: 'mock internal server error',
+    });
+  }
+  if (area <= 2) {
+    payload.push(data.search[0]);
+  }
+
+  if (area > 2 && area <= 5) {
+    payload.push(data.search.slice(1, 2));
+  }
+
+  if (area >= 5) {
+    payload.push(data.search.slice(1, 4));
+  }
+
+  reqAmountToErrorCounter--;
+  console.log(payload);
+  res.jsonp(payload);
 });
 // server.post('/battle', (req, res) => {
 //   const { monster1Id, monster2Id } = req.body;
