@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Geolocation from '@react-native-community/geolocation';
 import React, { useContext, useEffect, useState } from 'react';
-import { PermissionsAndroid, StyleSheet } from 'react-native';
+import { PermissionsAndroid, Platform, StyleSheet } from 'react-native';
 import { theme } from '../../../constants/theme';
 import { StackParamList } from '../../../navigation/AppNavigator';
 import { Container, Image, Text } from '../../components/baseComponents';
@@ -57,22 +57,28 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
 
   const requestCameraPermission = async () => {
     try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: PERMISSION_TITLE,
-          message: PERMISSION_MESSAGE,
-          buttonNegative: PERMISSION_NEGATIVE,
-          buttonPositive: PERMISSION_POSITIVE,
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      if (Platform.OS === 'ios') {
         getLocation();
         setGrantedPermission(true);
         setWaitingForPermission(false);
       } else {
-        setGrantedPermission(false);
-        setWaitingForPermission(false);
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: PERMISSION_TITLE,
+            message: PERMISSION_MESSAGE,
+            buttonNegative: PERMISSION_NEGATIVE,
+            buttonPositive: PERMISSION_POSITIVE,
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          getLocation();
+          setGrantedPermission(true);
+          setWaitingForPermission(false);
+        } else {
+          setGrantedPermission(false);
+          setWaitingForPermission(false);
+        }
       }
     } catch (err) {
       console.warn(err);
