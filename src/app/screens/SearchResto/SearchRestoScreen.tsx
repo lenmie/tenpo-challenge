@@ -30,6 +30,7 @@ import {
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
 import SearchAreaModalContent from './SearchAreaModalContent';
+import { AreaContext } from '../../AreaContext';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
@@ -262,7 +263,7 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
           index={1}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}>
-          <SearchAreaModalContent setArea={setAreaKm} />
+          <SearchAreaModalContent setArea={setAreaKm} areaKm={areaKm}/>
         </BottomSheetModal>
       </Container>
     </SafeAreaView>

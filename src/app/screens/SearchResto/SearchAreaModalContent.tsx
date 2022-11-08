@@ -3,20 +3,26 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { theme } from '../../../constants/theme';
 import { Container, Text } from '../../components/baseComponents';
 import { useBottomSheetModal } from '@gorhom/bottom-sheet';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Circle, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import icons from '../../../constants/icons';
 import Geolocation from '@react-native-community/geolocation';
+import AreaModalKMBar from './AreaModalKMBar';
+import { calculateKmDeltaDegrees } from '../../utils/utils';
 
 const APPLY = 'APLICAR';
 const TITLE = 'Area de Busqueda';
 const SUBTITLE =
   'Puedes modificar el radio de distancia para encontrar tu restaurante';
 
+const circleRadiusPerKm = 500;
+
+const areaCircleColor = 'rgba(0, 186, 164, 0.25)';
+
 interface Props {
   setArea: Function;
 }
 
-export default function SearchAreaModalContent({ setArea }: Props) {
+export default function SearchAreaModalContent({ setArea, areaKm }: Props) {
   const { dismissAll } = useBottomSheetModal();
   const [currentPosition, setCurrentPosition] = useState(null);
 
@@ -53,32 +59,37 @@ export default function SearchAreaModalContent({ setArea }: Props) {
         width="100%"
         justifyContent="center"
         alignItems="center">
-        <Text>barra</Text>
+        <AreaModalKMBar />
       </Container>
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         region={
           currentPosition
-            ? {
-                latitude: currentPosition.latitude + 0.0001,
-                longitude: currentPosition.longitude,
-                latitudeDelta: 0.005,
-                longitudeDelta: 0.005,
-              }
+            ? calculateKmDeltaDegrees(currentPosition, areaKm)
             : undefined
         }>
         {currentPosition ? (
-          <Marker
-            key={'key'}
-            coordinate={{
-              latitude: currentPosition.latitude,
-              longitude: currentPosition.longitude,
-            }}
-            title={'title'}
-            description={'description'}
-            image={icons.star}
-          />
+          <>
+            <Circle
+              center={{
+                latitude: currentPosition.latitude + 0.0008,
+                longitude: currentPosition.longitude,
+              }}
+              radius={circleRadiusPerKm * areaKm}
+              fillColor={areaCircleColor}
+              strokeColor="transparent"
+            />
+
+            <Marker
+              key={'key'}
+              coordinate={{
+                latitude: currentPosition.latitude,
+                longitude: currentPosition.longitude,
+              }}
+              image={icons.marker1}
+            />
+          </>
         ) : null}
       </MapView>
       <TouchableOpacity style={styles.applyButton} onPress={dismissAll}>
