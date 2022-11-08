@@ -24,6 +24,12 @@ const DIRECTION_INPUT_PLACEHOLDER = 'Escribe tu direccion';
 const WAITING_PERMISSION = 'Esperando tu ubicacion';
 const PERMISSION_DENIED = 'Permite a Tenpo acceder a tu ubicacion para seguir';
 const TITLE = 'Agregar direccion de entrega';
+const PERMISSION_TITLE =
+  'Permitir que "Tenpo" acceda a tu ubicacion mientras usas la app?';
+const PERMISSION_MESSAGE =
+  'Tu ubicacion actual se mostrara en el mapa y se usara para las indicaciones, los resultados de busqueda y la hora aproximada de llegada';
+const PERMISSION_NEGATIVE = 'No permitir';
+const PERMISSION_POSITIVE = 'Permitir';
 
 export default function AddDeliveryScreen({ navigation, route }: Props) {
   const [grantedPermission, setGrantedPermission] = useState(false);
@@ -54,11 +60,10 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         {
-          title: 'Tenpo Location Permission',
-          message: 'Tenpo needs access to your location ',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
+          title: PERMISSION_TITLE,
+          message: PERMISSION_MESSAGE,
+          buttonNegative: PERMISSION_NEGATIVE,
+          buttonPositive: PERMISSION_POSITIVE,
         },
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
