@@ -16,7 +16,7 @@ async function getLocationAddress(lat: number, long: number): Promise<string> {
 
     const address = data.results[0]['address_components'];
 
-    const curatedAddress = `${address[2]['long_name']} ${address[1]['short_name']}, ${address[3]['short_name']}, ${address[5]['short_name']}`;
+    const curatedAddress = `${address[1]['short_name']} ${address[0]['short_name']}, ${address[3]['short_name']}, ${address[5]['short_name']}`;
 
     return curatedAddress;
   } catch (error) {

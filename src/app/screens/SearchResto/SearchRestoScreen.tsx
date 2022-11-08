@@ -312,7 +312,6 @@ const styles = StyleSheet.create({
     width: '70%',
     backgroundColor: theme.colors.green[2],
   },
-  //
   container: {
     flex: 1,
     padding: 24,
