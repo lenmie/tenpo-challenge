@@ -16,6 +16,7 @@ import { MapsService } from '../../../services/MapsService';
 import { UserContext } from '../../UserContext';
 import { formatStreetString } from '../../utils/utils';
 import globals from '../../../constants/globals';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
