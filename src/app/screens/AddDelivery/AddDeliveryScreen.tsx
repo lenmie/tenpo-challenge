@@ -86,59 +86,61 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
   };
 
   return (
-    <Container width="100%">
-      <Container
-        height={90}
-        width="100%"
-        bg="green.0"
-        alignItems="center"
-        justifyContent="center">
+    <SafeAreaView>
+      <Container width="100%">
         <Container
-          flexDirection="row"
-          justifyContent="center"
-          alignItems="center">
-          <Image mr={2} source={globals.images.ui.mapIcon} />
-          <Text fontSize={[5]} fontFamily="Gotham-Light" color="green.1">
-            {TITLE}
-          </Text>
+          height={90}
+          width="100%"
+          bg="green.0"
+          alignItems="center"
+          justifyContent="center">
+          <Container
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="center">
+            <Image mr={2} source={globals.images.ui.mapIcon} />
+            <Text fontSize={[5]} fontFamily="Gotham-Light" color="green.1">
+              {TITLE}
+            </Text>
+          </Container>
         </Container>
-      </Container>
-      {waitingForPermission && (
-        <Text
-          textAlign="center"
-          fontSize={[5]}
-          color="grey.1"
-          fontFamily="Gotham-Light">
-          {WAITING_PERMISSION}
-        </Text>
-      )}
-      {!waitingForPermission && !grantedPermission && (
-        <Text
-          textAlign="center"
-          fontSize={[5]}
-          color="grey.1"
-          fontFamily="Gotham-Light">
-          {PERMISSION_DENIED}
-        </Text>
-      )}
-      {!waitingForPermission && grantedPermission && !!currentPosition && (
-        <MapContainer position={currentPosition} />
-      )}
-      <Container top={70} width="100%" position="absolute">
-        <TextInput
-          value={formatStreetString(address)}
-          textAlignVertical="center"
-          style={styles.addDirectionInput}
-          placeholder={DIRECTION_INPUT_PLACEHOLDER}
+        {waitingForPermission && (
+          <Text
+            textAlign="center"
+            fontSize={[5]}
+            color="grey.1"
+            fontFamily="Gotham-Light">
+            {WAITING_PERMISSION}
+          </Text>
+        )}
+        {!waitingForPermission && !grantedPermission && (
+          <Text
+            textAlign="center"
+            fontSize={[5]}
+            color="grey.1"
+            fontFamily="Gotham-Light">
+            {PERMISSION_DENIED}
+          </Text>
+        )}
+        {!waitingForPermission && grantedPermission && !!currentPosition && (
+          <MapContainer position={currentPosition} />
+        )}
+        <Container top={70} width="100%" position="absolute">
+          <TextInput
+            value={formatStreetString(address)}
+            textAlignVertical="center"
+            style={styles.addDirectionInput}
+            placeholder={DIRECTION_INPUT_PLACEHOLDER}
+          />
+        </Container>
+        <DeliveryPointDetail
+          onPress={() => {
+            setUserAddress(address);
+            navigation.pop();
+          }}
         />
       </Container>
-      <DeliveryPointDetail
-        onPress={() => {
-          setUserAddress(address);
-          navigation.pop();
-        }}
-      />
-    </Container>
+    </SafeAreaView>
   );
 }
 

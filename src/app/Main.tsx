@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@emotion/react';
 import React, { useState } from 'react';
 import { useMemo } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { theme } from '../constants/theme';
 import AppNavigator from '../navigation/AppNavigator';
 import { UserContext } from './UserContext';
@@ -15,7 +16,9 @@ export default function Main() {
   return (
     <ThemeProvider theme={theme}>
       <UserContext.Provider value={value}>
-        <AppNavigator />
+        <SafeAreaProvider>
+          <AppNavigator />
+        </SafeAreaProvider>
       </UserContext.Provider>
     </ThemeProvider>
   );
