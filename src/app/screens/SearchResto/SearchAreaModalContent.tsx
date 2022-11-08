@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { BackHandler, StyleSheet, TouchableOpacity } from 'react-native';
 import { theme } from '../../../constants/theme';
 import { Container, Text } from '../../components/baseComponents';
 import { useBottomSheetModal } from '@gorhom/bottom-sheet';
@@ -20,11 +20,33 @@ const areaCircleColor = 'rgba(0, 186, 164, 0.25)';
 
 interface Props {
   setArea: Function;
+  areaKm: number;
 }
 
 export default function SearchAreaModalContent({ setArea, areaKm }: Props) {
+  const [buttonArea, setButtonArea] = useState(areaKm);
+
   const { dismissAll } = useBottomSheetModal();
   const [currentPosition, setCurrentPosition] = useState(null);
+
+  const applyChanges = () => {
+    dismissAll();
+    setArea(buttonArea);
+  };
+
+  useEffect(() => {
+    const backAction = () => {
+      dismissAll();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [dismissAll]);
 
   useEffect(() => {
     Geolocation.getCurrentPosition(position => {
@@ -33,7 +55,7 @@ export default function SearchAreaModalContent({ setArea, areaKm }: Props) {
   }, []);
 
   return (
-    <Container alignItems="center" bg="red" flex={1}>
+    <Container alignItems="center" flex={1}>
       <Container
         px={20}
         bg="white"
@@ -59,14 +81,14 @@ export default function SearchAreaModalContent({ setArea, areaKm }: Props) {
         width="100%"
         justifyContent="center"
         alignItems="center">
-        <AreaModalKMBar />
+        <AreaModalKMBar setArea={setButtonArea} area={buttonArea} />
       </Container>
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         region={
           currentPosition
-            ? calculateKmDeltaDegrees(currentPosition, areaKm)
+            ? calculateKmDeltaDegrees(currentPosition, buttonArea)
             : undefined
         }>
         {currentPosition ? (
@@ -76,7 +98,7 @@ export default function SearchAreaModalContent({ setArea, areaKm }: Props) {
                 latitude: currentPosition.latitude + 0.0008,
                 longitude: currentPosition.longitude,
               }}
-              radius={circleRadiusPerKm * areaKm}
+              radius={circleRadiusPerKm * buttonArea}
               fillColor={areaCircleColor}
               strokeColor="transparent"
             />
@@ -92,7 +114,7 @@ export default function SearchAreaModalContent({ setArea, areaKm }: Props) {
           </>
         ) : null}
       </MapView>
-      <TouchableOpacity style={styles.applyButton} onPress={dismissAll}>
+      <TouchableOpacity style={styles.applyButton} onPress={applyChanges}>
         <Text fontSize={[3]} fontFamily="Gotham-Bold" color="white">
           {APPLY}
         </Text>
@@ -123,12 +145,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     justifyContent: 'center',
-    backgroundColor: 'red',
   },
   contentContainer: {
     height: '100%',
     alignItems: 'center',
-    backgroundColor: 'red',
   },
   map: {
     flex: 6,

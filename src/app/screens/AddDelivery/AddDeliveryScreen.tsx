@@ -13,7 +13,7 @@ import { position } from 'styled-system';
 import icons from '../../../constants/icons';
 import { Marker } from 'react-native-maps';
 import { MapsService } from '../../../services/MapsService';
-import { UserContext } from '../../UserContext';
+import { StoreContext, UserContext } from '../../UserContext';
 import { formatStreetString } from '../../utils/utils';
 import globals from '../../../constants/globals';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -36,8 +36,9 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
   const [grantedPermission, setGrantedPermission] = useState(false);
   const [waitingForPermission, setWaitingForPermission] = useState(true);
   const [currentPosition, setCurrentPosition] = useState(null);
-  const [address, setAddress] = useState(DIRECTION_INPUT_PLACEHOLDER);
-  const { userAddress, setUserAddress } = useContext(UserContext);
+  const {
+    ['address']: [addressName, setAddressName],
+  } = useContext(StoreContext);
 
   useEffect(() => {
     requestCameraPermission();
@@ -52,7 +53,7 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
 
   const getAdress = async location => {
     MapsService.getLocationAddress(location.latitude, location.longitude).then(
-      street => setAddress(street),
+      street => setAddressName(street),
     );
   };
 
@@ -128,7 +129,7 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
         )}
         <Container top={70} width="100%" position="absolute">
           <TextInput
-            value={formatStreetString(address)}
+            value={formatStreetString(addressName)}
             textAlignVertical="center"
             style={styles.addDirectionInput}
             placeholder={DIRECTION_INPUT_PLACEHOLDER}
@@ -136,7 +137,7 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
         </Container>
         <DeliveryPointDetail
           onPress={() => {
-            setUserAddress(address);
+            setAddressName(addressName);
             navigation.pop();
           }}
         />

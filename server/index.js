@@ -58,12 +58,12 @@ server.get('/search', (req, res) => {
     payload.push(data.search[0]);
   }
 
-  if (area > 2 && area <= 5) {
-    payload.push(data.search.slice(1, 2));
+  if (area > 2 && area < 5) {
+    payload.push(...data.search.slice(0, 2));
   }
 
   if (area >= 5) {
-    payload.push(data.search.slice(1, 4));
+    payload.push(...data.search.slice(0, 4));
   }
 
   reqAmountToErrorCounter--;

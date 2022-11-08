@@ -7,7 +7,13 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '../../../constants/icons';
 import { theme } from '../../../constants/theme';
@@ -22,16 +28,11 @@ import {
   Text,
 } from '../../components/baseComponents';
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
-import { UserContext } from '../../UserContext';
+import { StoreContext } from '../../UserContext';
 import SearchRestoListRow from './SearchRestoListRow';
-import {
-  useBottomSheetModal,
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import SearchAreaModalContent from './SearchAreaModalContent';
-import { AreaContext } from '../../AreaContext';
-
+var { width, height } = Dimensions.get('window');
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
 const NEAR_YOU_LOCATION = 'Tu ubicacion cercana';
@@ -40,25 +41,30 @@ const DIRECTION_INPUT_PLACEHOLDER = 'Escribe nombre del restaurante que buscas';
 const OPEN_STORES = 'Solo locales abiertos';
 const SEARCH_AREA = 'Area de Busqueda:';
 const TRY_AGAIN = 'REINTENTAR';
-const APPLY = 'APLICAR';
 
 const directionInputHeight = 70;
 const headerHeight = 150;
 const filterContainerHeight = 120;
 const inputOffset = 30;
 
-export default function SearchRestoScreen({ navigation, route }: Props) {
-  const [areaKm, setAreaKm] = useState(1);
+export default function SearchRestoScreen({ navigation }: Props) {
+  const {
+    ['area']: [areaKm, setAreaKm],
+  } = useContext(StoreContext);
+  const {
+    ['address']: [addressName],
+  } = useContext(StoreContext);
+
   const [openStoresFilter, setOpenStoresFilter] = useState(true);
   const [results, setResults] = useState<Resto[]>([]);
   const [searchInput, setSearchInput] = useState('');
   const [activeInput, setActiveInput] = useState(false);
   const [errorStatus, setErrorStatus] = useState('');
-  const { userAddress } = useContext(UserContext);
+  const [modalActive, setModalActive] = useState(false);
 
   const mockSearch = () => {
     setErrorStatus('');
-    RestoService.searchResto(searchInput).then(response => {
+    RestoService.searchResto(searchInput, areaKm).then(response => {
       if (typeof response === 'string') {
         setErrorStatus(response);
         return;
@@ -67,23 +73,23 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
     });
   };
 
-  // ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-
-  // variables
   const snapPoints = useMemo(() => ['50%', '72%'], []);
-
-  // callbacks
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
   const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
+    if (index > 0) setModalActive(true);
+    if (index < 0) setModalActive(false);
   }, []);
 
   return (
     <SafeAreaView>
-      <Container width="100%" height="100%" bg="white">
+      <Container
+        width="100%"
+        height="100%"
+        bg={modalActive ? 'white' : ' black'}
+        opacity={modalActive ? 0.5 : 1}>
         <Container
           height={headerHeight}
           width="100%"
@@ -94,6 +100,7 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
           px={18}>
           <Container flexDirection="row">
             <Pressable
+              disabled={modalActive}
               onPress={() => navigation.pop()}
               flexDirection="row"
               justifyContent="center"
@@ -109,12 +116,13 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
                 fontSize={[5]}
                 fontFamily="Gotham-Light"
                 color="green.1">
-                {userAddress ? userAddress : DIRECTION_PLACEHOLDER}
+                {addressName ? addressName : DIRECTION_PLACEHOLDER}
               </Text>
             </Container>
           </Container>
 
           <Pressable
+            disabled={modalActive}
             onPress={() => navigation.push('AddDelivery')}
             justifyContent="center"
             alignItems="center"
@@ -132,6 +140,7 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
           alignItems="center"
           flexDirection="row">
           <Pressable
+            disabled={modalActive}
             opacity={openStoresFilter ? 1 : 0.2}
             onPress={() => setOpenStoresFilter(!openStoresFilter)}
             justifyContent="center"
@@ -149,6 +158,7 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
           </Pressable>
 
           <Pressable
+            disabled={modalActive}
             onPress={handlePresentModalPress}
             justifyContent="center"
             alignItems="center"
@@ -168,6 +178,7 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
 
         <Container style={styles.addDirectionInput}>
           <TextInput
+            editable={!modalActive}
             value={searchInput}
             onChangeText={setSearchInput}
             onFocus={() => setActiveInput(true)}
@@ -188,6 +199,7 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
             top={headerHeight - inputOffset}
             position="absolute">
             <Pressable
+              disabled={modalActive}
               onPress={mockSearch}
               justifyContent="center"
               alignItems="center"
@@ -259,11 +271,12 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
         )}
 
         <BottomSheetModal
+          keyboardBlurBehavior="restore"
           ref={bottomSheetModalRef}
           index={1}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}>
-          <SearchAreaModalContent setArea={setAreaKm} areaKm={areaKm}/>
+          <SearchAreaModalContent setArea={setAreaKm} areaKm={areaKm} />
         </BottomSheetModal>
       </Container>
     </SafeAreaView>
@@ -304,11 +317,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     justifyContent: 'center',
-    backgroundColor: 'red',
   },
   contentContainer: {
     height: '100%',
     alignItems: 'center',
-    backgroundColor: 'red',
   },
 });

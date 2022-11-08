@@ -9,7 +9,7 @@ import {
   Text,
   Pressable,
 } from '../../components/baseComponents';
-import { UserContext } from '../../UserContext';
+import { StoreContext } from '../../UserContext';
 import HomeHeader from './HomeHeader';
 import HomeMainImage from './HomeMainImage';
 
@@ -17,9 +17,11 @@ const ADDRESS_SUBTITLE = 'Enviaremos tus pedidos a';
 
 export default function HomeTopContainer() {
   const navigation = useNavigation();
-  const { userAddress } = useContext(UserContext);
+  const {
+    ['address']: [addressName],
+  } = useContext(StoreContext);
 
-  const title = userAddress ? userAddress : 'Agregar direccion de entrega';
+  const title = addressName ? addressName : 'Agregar direccion de entrega';
 
   return (
     <Container flex={1} alignItems="center" justifyContent="center" bg="grey">
@@ -71,7 +73,7 @@ export default function HomeTopContainer() {
           justifyContent="center"
           alignItems="center">
           <Image mr={2} source={globals.images.ui.mapIcon} />
-          {!!userAddress ? (
+          {!!addressName ? (
             <Container>
               <Text
                 numberOfLines={1}

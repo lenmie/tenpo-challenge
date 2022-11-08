@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Dimensions } from 'react-native';
 
 import {
@@ -7,6 +7,7 @@ import {
   Pressable,
   Text,
 } from '../../components/baseComponents';
+import { StoreContext } from '../../UserContext';
 
 const { width } = Dimensions.get('screen');
 const bigDotSize = 20;
@@ -69,11 +70,10 @@ function OptionLabel({ index, currentArea, label }: OptionLabelProps) {
 
 interface Props {
   setArea: Function;
+  area: number;
 }
 
-export default function AreaModalKMBar({ setArea }: Props) {
-  const [areaKm, setAreaKm] = useState(1);
-
+export default function AreaModalKMBar({ setArea, area }: Props) {
   return (
     <Container
       flex={1}
@@ -87,36 +87,32 @@ export default function AreaModalKMBar({ setArea }: Props) {
         position="absolute"
         top={dotLabelMarginTop}
         left={dotLabelMarginX}>
-        <OptionLabel
-          index={1}
-          currentArea={areaKm}
-          label={FIRST_OPTION_LABEL}
-        />
+        <OptionLabel index={1} currentArea={area} label={FIRST_OPTION_LABEL} />
       </Container>
       <Container position="absolute" left={marginX}>
-        <OptionDot index={1} currentArea={areaKm} setArea={setAreaKm} />
+        <OptionDot index={1} currentArea={area} setArea={setArea} />
       </Container>
 
       <Container position="absolute" left={middleLeft}>
-        <OptionDot index={2} currentArea={areaKm} setArea={setAreaKm} />
+        <OptionDot index={2} currentArea={area} setArea={setArea} />
       </Container>
 
       <Container position="absolute" right={middle}>
-        <OptionDot index={3} currentArea={areaKm} setArea={setAreaKm} />
+        <OptionDot index={3} currentArea={area} setArea={setArea} />
       </Container>
 
       <Container position="absolute" right={middleRight}>
-        <OptionDot index={4} currentArea={areaKm} setArea={setAreaKm} />
+        <OptionDot index={4} currentArea={area} setArea={setArea} />
       </Container>
 
       <Container
         position="absolute"
         top={dotLabelMarginTop}
         right={dotLabelMarginX}>
-        <OptionLabel index={5} currentArea={areaKm} label={LAST_OPTION_LABEL} />
+        <OptionLabel index={5} currentArea={area} label={LAST_OPTION_LABEL} />
       </Container>
       <Container position="absolute" right={marginX}>
-        <OptionDot index={5} currentArea={areaKm} setArea={setAreaKm} />
+        <OptionDot index={5} currentArea={area} setArea={setArea} />
       </Container>
     </Container>
   );
