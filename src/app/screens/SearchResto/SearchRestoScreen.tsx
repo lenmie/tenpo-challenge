@@ -1,6 +1,13 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useContext, useEffect, useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '../../../constants/icons';
 import { theme } from '../../../constants/theme';
@@ -17,6 +24,12 @@ import {
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
 import { UserContext } from '../../UserContext';
 import SearchRestoListRow from './SearchRestoListRow';
+import {
+  useBottomSheetModal,
+  BottomSheetModal,
+  BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet';
+import SearchAreaModalContent from './SearchAreaModalContent';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
@@ -26,6 +39,7 @@ const DIRECTION_INPUT_PLACEHOLDER = 'Escribe nombre del restaurante que buscas';
 const OPEN_STORES = 'Solo locales abiertos';
 const SEARCH_AREA = 'Area de Busqueda:';
 const TRY_AGAIN = 'REINTENTAR';
+const APPLY = 'APLICAR';
 
 const directionInputHeight = 70;
 const headerHeight = 150;
@@ -51,6 +65,20 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
       setResults(response);
     });
   };
+
+  // ref
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  // variables
+  const snapPoints = useMemo(() => ['50%', '72%'], []);
+
+  // callbacks
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
+  }, []);
 
   return (
     <SafeAreaView>
@@ -120,6 +148,7 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
           </Pressable>
 
           <Pressable
+            onPress={handlePresentModalPress}
             justifyContent="center"
             alignItems="center"
             borderColor="green.1"
@@ -227,6 +256,14 @@ export default function SearchRestoScreen({ navigation, route }: Props) {
             renderItem={({ item }) => <SearchRestoListRow item={item} />}
           />
         )}
+
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          index={1}
+          snapPoints={snapPoints}
+          onChange={handleSheetChanges}>
+          <SearchAreaModalContent setArea={setAreaKm} />
+        </BottomSheetModal>
       </Container>
     </SafeAreaView>
   );
@@ -260,5 +297,17 @@ const styles = StyleSheet.create({
     height: 40,
     width: '70%',
     backgroundColor: theme.colors.green[2],
+  },
+  //
+  container: {
+    flex: 1,
+    padding: 24,
+    justifyContent: 'center',
+    backgroundColor: 'red',
+  },
+  contentContainer: {
+    height: '100%',
+    alignItems: 'center',
+    backgroundColor: 'red',
   },
 });

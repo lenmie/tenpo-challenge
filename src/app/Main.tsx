@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { theme } from '../constants/theme';
 import AppNavigator from '../navigation/AppNavigator';
 import { UserContext } from './UserContext';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 export default function Main() {
   const [userAddress, setUserAddress] = useState(null);
@@ -15,11 +16,13 @@ export default function Main() {
 
   return (
     <ThemeProvider theme={theme}>
-      <UserContext.Provider value={value}>
-        <SafeAreaProvider>
-          <AppNavigator />
-        </SafeAreaProvider>
-      </UserContext.Provider>
+      <BottomSheetModalProvider>
+        <UserContext.Provider value={value}>
+          <SafeAreaProvider>
+            <AppNavigator />
+          </SafeAreaProvider>
+        </UserContext.Provider>
+      </BottomSheetModalProvider>
     </ThemeProvider>
   );
 }
