@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import icons from '../../../constants/icons';
-import Resto from '../../../model/Resto';
+import { Resto } from '../../../interfaces/interfaces';
 import {
   Container,
   Image,

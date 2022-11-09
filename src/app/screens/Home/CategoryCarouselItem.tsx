@@ -1,6 +1,6 @@
 import React from 'react';
 import { backgroundColor, height } from 'styled-system';
-import Category from '../../../model/Category';
+import { Category } from '../../../interfaces/interfaces';
 import {
   Container,
   ImageBackground,
@@ -9,7 +9,7 @@ import {
 } from '../../components/baseComponents';
 
 interface Props {
-  item: Category;
+  item: Category
 }
 
 const cardContainerWidth = 185;

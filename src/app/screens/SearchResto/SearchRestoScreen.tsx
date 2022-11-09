@@ -4,7 +4,6 @@ import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '../../../constants/icons';
 import { theme } from '../../../constants/theme';
-import Resto from '../../../model/Resto';
 import { StackParamList } from '../../../navigation/AppNavigator';
 import { RestoService } from '../../../services/RestoService';
 import {
@@ -23,6 +22,7 @@ import NoResultsMessage from './NoResultsMessage';
 import RestoFetchErrorMessage from './RestoFetchErrorMessage';
 import FilterBar from './FilterBar';
 import AddressHeader from '../../components/AddressHeader';
+import { Resto } from '../../../interfaces/interfaces';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import Favorite from '../../../model/Favorite';
 import icons from '../../../constants/icons';
+import { Favorite } from '../../../interfaces/interfaces';
 import {
   Box,
   Container,
