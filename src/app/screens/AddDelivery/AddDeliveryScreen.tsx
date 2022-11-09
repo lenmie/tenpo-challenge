@@ -117,8 +117,6 @@ export default function AddDeliveryScreen({ navigation }: Props) {
       console.warn(err);
     }
   };
-  console.log('searchByPosition', searchByPosition);
-  console.log('currentPosition', currentPosition);
 
   return (
     <SafeAreaView>
@@ -157,29 +155,35 @@ export default function AddDeliveryScreen({ navigation }: Props) {
             {PERMISSION_DENIED}
           </Text>
         )}
+
         {!waitingForPermission &&
           grantedPermission &&
           !!currentPosition?.latitude && (
-            <MapContainer position={currentPosition} />
+            <>
+              <MapContainer position={currentPosition} />
+              <DeliveryPointDetail
+                onPress={() => {
+                  dispatch({
+                    type: types.setLocation,
+                    payload: currentPosition,
+                  });
+                  dispatch({ type: types.setAddress, payload: fetchedAddress });
+                  dispatch({ type: types.enableSearchByPosition });
+                  navigation.pop();
+                }}
+              />
+            </>
           )}
-        <Container top={70} width="100%" position="absolute">
-          <StyledTextInput
-            autoFocus={false}
-            onFocus={() => navigation.push('AddAddress')}
-            ref={textInputRef}
-            value={formatStreetString(fetchedAddress)}
-            textAlignVertical="center"
-            style={styles.addDirectionInput}
-            placeholder={DIRECTION_INPUT_PLACEHOLDER}
-          />
-        </Container>
-        <DeliveryPointDetail
-          onPress={() => {
-            dispatch({ type: types.setLocation, payload: currentPosition });
-            dispatch({ type: types.setAddress, payload: fetchedAddress });
-            dispatch({ type: types.enableSearchByPosition });
-            navigation.pop();
-          }}
+      </Container>
+      <Container top={70} width="100%" position="absolute">
+        <StyledTextInput
+          autoFocus={false}
+          onFocus={() => navigation.push('AddAddress')}
+          ref={textInputRef}
+          value={formatStreetString(fetchedAddress)}
+          textAlignVertical="center"
+          style={styles.addDirectionInput}
+          placeholder={DIRECTION_INPUT_PLACEHOLDER}
         />
       </Container>
     </SafeAreaView>
