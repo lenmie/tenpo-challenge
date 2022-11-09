@@ -6,11 +6,11 @@ import { StackParamList } from '../../../navigation/AppNavigator';
 import { Box, Container, Image, Text } from '../../components/baseComponents';
 import { TextInput as StyledTextInput } from '../../components/baseComponents/TextInput.styled';
 import { MapsService } from '../../../services/MapsService';
-import globals from '../../../constants/globals';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Candidate } from '../../../interfaces/interfaces';
 import AddressFooterRow from './AddressFooterRow';
 import AddressRow from './AddressRow';
+import icons from '../../../constants/icons';
 
 type Props = NativeStackScreenProps<StackParamList, 'AddAddress'>;
 export type AddAddressScreenNavigationProp = Props['navigation'];
@@ -41,7 +41,7 @@ export default function AddAddressScreen() {
   };
 
   const onChangeText = (term: string) => {
-    if (!!term.length) {
+    if (term.length) {
       setEmptyInput(false);
       setQuery(term);
       if (searchTimeout) clearTimeout(searchTimeout.current);
@@ -69,7 +69,7 @@ export default function AddAddressScreen() {
             flexDirection="row"
             justifyContent="center"
             alignItems="center">
-            <Image mr={2} source={globals.images.ui.mapIcon} />
+            <Image mr={2} source={icons.map} height={28} width={25} />
             <Text fontSize={[5]} fontFamily="Gotham-Light" color="green.1">
               {emptyInput ? WAITING : TITLE}
             </Text>

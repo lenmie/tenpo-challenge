@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Dimensions } from 'react-native';
-import globals from '../../../constants/globals';
 import icons from '../../../constants/icons';
 import { Container, Image, Pressable } from '../../components/baseComponents';
 import { HomeScreenNavigationProp } from './HomeScreen';
@@ -20,7 +19,7 @@ export default function HomeHeader() {
       <Pressable ml={10}>
         <Image
           resizeMode="contain"
-          source={globals.images.ui.userIcon}
+          source={icons.user}
           height="100%"
           width={width * 0.1}
         />

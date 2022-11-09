@@ -17,12 +17,12 @@ import DeliveryPointDetail from './DeliveryPointDetail';
 import MapContainer from './MapContainer';
 import { MapsService } from '../../../services/MapsService';
 import { formatStreetString } from '../../utils/utils';
-import globals from '../../../constants/globals';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useStore } from '../../store/StoreProvider';
 import { types } from '../../store/storeReducer';
 import { useFocusEffect } from '@react-navigation/native';
 import { LocationLong } from '../../../interfaces/interfaces';
+import icons from '../../../constants/icons';
 
 type Props = NativeStackScreenProps<StackParamList, 'AddDelivery'>;
 export type AddDeliveryScreenNavigationProp = Props['navigation'];
@@ -133,7 +133,7 @@ export default function AddDeliveryScreen({ navigation }: Props) {
             flexDirection="row"
             justifyContent="center"
             alignItems="center">
-            <Image mr={2} source={globals.images.ui.mapIcon} />
+            <Image mr={2} source={icons.map} height={28} width={25} />
             <Text fontSize={[5]} fontFamily="Gotham-Light" color="green.1">
               {TITLE}
             </Text>
