@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Geolocation from '@react-native-community/geolocation';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { PermissionsAndroid, Platform, StyleSheet } from 'react-native';
 import { theme } from '../../../constants/theme';
 import { StackParamList } from '../../../navigation/AppNavigator';
@@ -36,12 +36,14 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
   const [grantedPermission, setGrantedPermission] = useState(false);
   const [waitingForPermission, setWaitingForPermission] = useState(true);
   const [currentPosition, setCurrentPosition] = useState(null);
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
   const {
     ['address']: [addressName, setAddressName],
   } = useContext(StoreContext);
 
   useEffect(() => {
-    requestCameraPermission();
+    requestLocationPermission();
   }, []);
 
   const getLocation = () => {
@@ -57,7 +59,23 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
     );
   };
 
-  const requestCameraPermission = async () => {
+  const searchTimeout = useRef(null);
+  const textInputRef = useRef(null);
+
+  const onChangeText = (term: string) => {
+    if (!!term.length) {
+      setQuery(term);
+      if (searchTimeout) clearTimeout(searchTimeout.current);
+
+      searchTimeout.current = setTimeout(() => {
+        MapsService.getAddresses(term).then(res => {});
+      }, 500);
+    } else {
+      setQuery('');
+      textInputRef.current.clear();
+    }
+  };
+  const requestLocationPermission = async () => {
     try {
       if (Platform.OS === 'ios') {
         getLocation();
@@ -129,7 +147,10 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
         )}
         <Container top={70} width="100%" position="absolute">
           <TextInput
-            value={formatStreetString(addressName)}
+            onFocus={() => navigation.push('AddAddress')}
+            ref={textInputRef}
+            onChangeText={onChangeText}
+            value={query}
             textAlignVertical="center"
             style={styles.addDirectionInput}
             placeholder={DIRECTION_INPUT_PLACEHOLDER}

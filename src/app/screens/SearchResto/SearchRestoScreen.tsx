@@ -29,7 +29,7 @@ import {
 } from '../../components/baseComponents';
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
 import { StoreContext } from '../../UserContext';
-import SearchRestoListRow from './SearchRestoListRow';
+import SearchRestoListRow from '../AddAddress/AddressRow';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import SearchAreaModalContent from './SearchAreaModalContent';
 var { width, height } = Dimensions.get('window');

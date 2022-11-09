@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../app/screens/Home/HomeScreen';
 import AddDeliveryScreen from '../app/screens/AddDelivery/AddDeliveryScreen';
 import SearchRestoScreen from '../app/screens/SearchResto/SearchRestoScreen';
+import AddAddressScreen from '../app/screens/AddAddress/AddAddressScreen';
 
 export type StackParamList = {
   Home: undefined;
@@ -23,6 +24,7 @@ export default function AppNavigator() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="SearchResto" component={SearchRestoScreen} />
         <Stack.Screen name="AddDelivery" component={AddDeliveryScreen} />
+        <Stack.Screen name="AddAddress" component={AddAddressScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
