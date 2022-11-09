@@ -25,6 +25,9 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import SearchAreaModalContent from './SearchAreaModalContent';
 import { useDispatch, useStore } from '../../store/StoreProvider';
 import { types } from '../../store/storeReducer';
+import NoResultsMessage from './NoResultsMessage';
+import RestoFetchErrorMessage from './RestoFetchErrorMessage';
+import FilterBar from './FilterBar';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
@@ -120,49 +123,13 @@ export default function SearchRestoScreen({ navigation }: Props) {
           </Pressable>
         </Container>
 
-        <Container
-          bg="grey.2"
-          height={filterContainerHeight}
-          pt={40}
-          justifyContent="space-around"
-          alignItems="center"
-          flexDirection="row">
-          <Pressable
-            disabled={modalActive}
-            opacity={openStoresFilter ? 1 : 0.2}
-            onPress={() => setOpenStoresFilter(!openStoresFilter)}
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="row"
-            borderColor="green.1"
-            borderWidth={1}
-            borderRadius={5}
-            height={40}
-            width={180}>
-            <Text fontSize={[2]} fontFamily="Gotham-Light" color="green.1">
-              {OPEN_STORES}
-            </Text>
-            <Image height={22} width={22} ml={1} source={icons.check} />
-          </Pressable>
-
-          <Pressable
-            disabled={modalActive}
-            onPress={handlePresentModalPress}
-            justifyContent="center"
-            alignItems="center"
-            borderColor="green.1"
-            borderWidth={1}
-            borderRadius={5}
-            height={40}
-            width={180}>
-            <Text fontSize={[2]} fontFamily="Gotham-Light" color="green.1">
-              {SEARCH_AREA}
-              <Text fontFamily="Gotham-Bold" color="green.1">
-                {`${area} KM`}
-              </Text>
-            </Text>
-          </Pressable>
-        </Container>
+        <FilterBar
+          area={area}
+          modalActive={modalActive}
+          openStoresFilter={openStoresFilter}
+          toggleOpenStoresFilter={() => setOpenStoresFilter(!openStoresFilter)}
+          handlePresentModalPress={handlePresentModalPress}
+        />
 
         <Container style={styles.addDirectionInput}>
           <TextInput
@@ -198,54 +165,13 @@ export default function SearchRestoScreen({ navigation }: Props) {
           </Container>
         )}
 
-        {!openStoresFilter && (
-          <Container flex={1}>
-            <Container
-              mt={150}
-              mx={30}
-              justifyContent="center"
-              alignItems="center">
-              <Text fontSize={[3]} color="green.2" fontFamily="Gotham-Bold">
-                Lo sentimos
-              </Text>
-              <Text
-                textAlign="center"
-                fontSize={[6]}
-                color="grey.1"
-                fontFamily="Gotham-Light">
-                En este momento no hay locales abiertos en el area de busqueda
-                determinada.
-              </Text>
-            </Container>
-          </Container>
-        )}
+        {!openStoresFilter && <NoResultsMessage />}
 
         {!!errorStatus.length && (
-          <Container flex={1}>
-            <Container
-              mt={150}
-              mx={30}
-              justifyContent="center"
-              alignItems="center">
-              <Text fontSize={[3]} color="green.2" fontFamily="Gotham-Bold">
-                Lo sentimos
-              </Text>
-              <Text
-                textAlign="center"
-                fontSize={[5]}
-                color="grey.1"
-                fontFamily="Gotham-Light">
-                {errorStatus}
-              </Text>
-              <TouchableOpacity
-                style={styles.addDirectionButton}
-                onPress={mockSearch}>
-                <Text fontSize={[3]} fontFamily="Gotham-Bold" color="white">
-                  {TRY_AGAIN}
-                </Text>
-              </TouchableOpacity>
-            </Container>
-          </Container>
+          <RestoFetchErrorMessage
+            onRetryPress={mockSearch}
+            message={errorStatus}
+          />
         )}
 
         {!errorStatus.length && openStoresFilter && !!results.length && (
