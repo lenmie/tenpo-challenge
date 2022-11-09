@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import icons from '../../../constants/icons';
 import Resto from '../../../model/Resto';
@@ -18,8 +19,15 @@ const containerWidth = 168;
 
 export default function RestoCarouselItem(props: Props) {
   const resto = props.item;
+  const navigation = useNavigation();
+
+  const onPress = () => {
+    navigation.push('RestoDetail', { resto: resto });
+  };
+
   return (
     <Pressable
+      onPress={onPress}
       width={containerHeight}
       height={containerWidth}
       alignItems="center"

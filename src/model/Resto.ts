@@ -8,6 +8,7 @@ export default class Resto extends GenericModel {
   logoImageSource: string;
   discount: number;
   location: string;
+  detail: string;
 
   constructor(object: any) {
     super(object);
@@ -18,5 +19,6 @@ export default class Resto extends GenericModel {
     this.timeAproxMin = object.timeAproxMin;
     this.timeAproxMax = object.timeAproxMax;
     this.location = object.location;
+    this.detail = object.detail;
   }
 }

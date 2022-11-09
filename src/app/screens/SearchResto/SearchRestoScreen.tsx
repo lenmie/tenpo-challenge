@@ -20,7 +20,7 @@ import {
   Text,
 } from '../../components/baseComponents';
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
-import SearchRestoListRow from '../AddAddress/AddressRow';
+import SearchRestoListRow from './SearchRestoListRow';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import SearchAreaModalContent from './SearchAreaModalContent';
 import { useDispatch, useStore } from '../../store/StoreProvider';

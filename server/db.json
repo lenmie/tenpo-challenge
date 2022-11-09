@@ -8,7 +8,8 @@
       "timeAproxMax": 50,
       "discount": 50,
       "logoImageSource": "http://localhost:8000/static/chainlogo/mcdonalds.png",
-      "location": "Av. Francisco Bilbao 3975, La Reina"
+      "location": "Av. Francisco Bilbao 3975, La Reina",
+      "detail": "Hamburguesas - Snacks"
     },
     {
       "id": "2R",
@@ -18,7 +19,8 @@
       "timeAproxMax": 60,
       "discount": 30,
       "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png",
-      "location": "Av. Francisco Bilbao 3975, La Reina"
+      "location": "Av. Francisco Bilbao 3975, La Reina",
+      "detail": "Pizzas - Snacks"
     },
     {
       "id": "3R",
@@ -28,7 +30,8 @@
       "timeAproxMax": 50,
       "discount": 50,
       "logoImageSource": "http://localhost:8000/static/chainlogo/yokono.png",
-      "location": "Av. Francisco Bilbao 3975, La Reina"
+      "location": "Av. Francisco Bilbao 3975, La Reina",
+      "detail": "Sushi - Asiatica"
     },
     {
       "id": "4R",
@@ -38,7 +41,8 @@
       "timeAproxMax": 60,
       "discount": 0,
       "logoImageSource": "http://localhost:8000/static/chainlogo/papajohns.png",
-      "location": "Av. Francisco Bilbao 3975, La Reina"
+      "location": "Av. Francisco Bilbao 3975, La Reina",
+      "detail": "Pizzas - Snacks"
     }
   ],
   "category": [
@@ -89,7 +93,9 @@
     "timeAproxMax": 60,
     "discount": 30,
     "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png",
-    "location": "Av. Francisco Bilbao 3975, La Reina"
+    "location": "Av. Francisco Bilbao 3975, La Reina",
+    "detail": "Pizzas - Snacks"
+    
   },
   {
     "id": "2MELT",
@@ -99,7 +105,8 @@
     "timeAproxMax": 60,
     "discount": 30,
     "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png",
-    "location": "Americo Vespucio 51 - Local 128, Pajaritos, Maipi"
+    "location": "Americo Vespucio 51 - Local 128, Pajaritos, Maipi",
+    "detail": "Pizzas - Snacks"
   },
   {
     "id": "3MELT",
@@ -109,7 +116,8 @@
     "timeAproxMax": 60,
     "discount": 30,
     "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png",
-    "location": "Compania de Jesus 1909, Santiago"
+    "location": "Compania de Jesus 1909, Santiago",
+    "detail": "Pizzas - Snacks"
   },
   {
     "id": "4MELT",
@@ -119,7 +127,8 @@
     "timeAproxMax": 60,
     "discount": 30,
     "logoImageSource": "http://localhost:8000/static/chainlogo/melt.png",
-    "location": "Callao 2912, Las Condes"
+    "location": "Callao 2912, Las Condes",
+    "detail": "Pizzas - Snacks"
   }
  ]
 }

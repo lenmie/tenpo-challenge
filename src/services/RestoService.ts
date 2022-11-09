@@ -11,7 +11,6 @@ const getRestos = async (): Promise<any[]> =>
 
 async function searchResto(query: string, area = 1): Promise<any[] | string> {
   try {
-
     const response = await fetch(
       `${API_URL}/search?query=${query}&area=${area}`,
     );

@@ -8,7 +8,7 @@ import { TextInput } from '../../components/baseComponents/TextInput.styled';
 import { MapsService } from '../../../services/MapsService';
 import globals from '../../../constants/globals';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AddressRow from './AddressRow';
+import AddressRow from '../SearchResto/SearchRestoListRow';
 import { Candidate } from '../../../interfaces/interfaces';
 import AddressFooterRow from './AddressFooterRow';
 
