@@ -4,11 +4,12 @@ import { Dimensions } from 'react-native';
 import globals from '../../../constants/globals';
 import icons from '../../../constants/icons';
 import { Container, Image, Pressable } from '../../components/baseComponents';
+import { HomeScreenNavigationProp } from './HomeScreen';
 
 const { width } = Dimensions.get('screen');
 
 export default function HomeHeader() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeScreenNavigationProp>();
   return (
     <Container
       width="100%"

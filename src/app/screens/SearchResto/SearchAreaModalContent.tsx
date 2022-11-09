@@ -8,6 +8,7 @@ import icons from '../../../constants/icons';
 import Geolocation from '@react-native-community/geolocation';
 import AreaModalKMBar from './AreaModalKMBar';
 import { calculateKmDeltaDegrees } from '../../utils/utils';
+import { LocationLong } from '../../../interfaces/interfaces';
 
 const APPLY = 'APLICAR';
 const TITLE = 'Area de Busqueda';
@@ -27,7 +28,9 @@ export default function SearchAreaModalContent({ setArea, areaKm }: Props) {
   const [buttonArea, setButtonArea] = useState(areaKm);
 
   const { dismissAll } = useBottomSheetModal();
-  const [currentPosition, setCurrentPosition] = useState(null);
+  const [currentPosition, setCurrentPosition] = useState<LocationLong | null>(
+    null,
+  );
 
   const applyChanges = () => {
     dismissAll();

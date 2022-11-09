@@ -11,11 +11,12 @@ import {
 import { useStore } from '../../store/StoreProvider';
 import HomeHeader from './HomeHeader';
 import HomeMainImage from './HomeMainImage';
+import { HomeScreenNavigationProp } from './HomeScreen';
 
 const ADDRESS_SUBTITLE = 'Enviaremos tus pedidos a';
 
 export default function HomeTopContainer() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeScreenNavigationProp>();
   const { address } = useStore();
 
   const title = address ? address : 'Agregar direccion de entrega';

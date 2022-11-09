@@ -28,7 +28,7 @@ export default function AddressHeader({ modalActive, ExtraComponent }: Props) {
       <Container flexDirection="row" flex={6}>
         <Pressable
           disabled={modalActive}
-          onPress={() => navigation.pop()}
+          onPress={() => navigation.goBack()}
           flexDirection="row"
           justifyContent="center"
           alignItems="center">

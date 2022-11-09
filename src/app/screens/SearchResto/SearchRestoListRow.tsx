@@ -1,22 +1,20 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import { Resto } from '../../../interfaces/interfaces';
 import {
   Container,
   Image,
   Pressable,
   Text,
 } from '../../components/baseComponents';
+import { SearchRestoScreenNavigationProp } from './SearchRestoScreen';
 
 interface Props {
-  item: {
-    name: string;
-    location: string;
-    logoImageSource: string;
-  };
+  item: Resto;
 }
 
 export default function SearchRestoListRow({ item }: Props) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<SearchRestoScreenNavigationProp>();
 
   const onPress = () => {
     navigation.push('RestoDetail', { resto: item });

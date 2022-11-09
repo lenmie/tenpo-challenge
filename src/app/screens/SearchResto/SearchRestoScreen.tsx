@@ -24,7 +24,8 @@ import FilterBar from './FilterBar';
 import AddressHeader from '../../components/AddressHeader';
 import { Resto } from '../../../interfaces/interfaces';
 
-type Props = NativeStackScreenProps<StackParamList, 'Home'>;
+type Props = NativeStackScreenProps<StackParamList, 'SearchResto'>;
+export type SearchRestoScreenNavigationProp = Props['navigation'];
 
 const DIRECTION_INPUT_PLACEHOLDER = 'Escribe nombre del restaurante que buscas';
 

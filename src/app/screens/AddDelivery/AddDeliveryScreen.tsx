@@ -1,11 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Geolocation from '@react-native-community/geolocation';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { PermissionsAndroid, Platform, StyleSheet } from 'react-native';
+import {
+  PermissionsAndroid,
+  Platform,
+  StyleSheet,
+  TextInput,
+} from 'react-native';
 import { theme } from '../../../constants/theme';
 import { StackParamList } from '../../../navigation/AppNavigator';
 import { Container, Image, Text } from '../../components/baseComponents';
-import { TextInput } from '../../components/baseComponents/TextInput.styled';
+import { TextInput as StyledTextInput } from '../../components/baseComponents/TextInput.styled';
 import DeliveryPointDetail from './DeliveryPointDetail';
 import MapContainer from './MapContainer';
 import { MapsService } from '../../../services/MapsService';
@@ -15,8 +21,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useStore } from '../../store/StoreProvider';
 import { types } from '../../store/storeReducer';
 import { useFocusEffect } from '@react-navigation/native';
+import { LocationLong } from '../../../interfaces/interfaces';
 
-type Props = NativeStackScreenProps<StackParamList, 'Home'>;
+type Props = NativeStackScreenProps<StackParamList, 'AddDelivery'>;
+export type AddDeliveryScreenNavigationProp = Props['navigation'];
 
 const directionInputHeight = 70;
 const DIRECTION_INPUT_PLACEHOLDER = 'Escribe tu direccion';
@@ -30,7 +38,7 @@ const PERMISSION_MESSAGE =
 const PERMISSION_NEGATIVE = 'No permitir';
 const PERMISSION_POSITIVE = 'Permitir';
 
-export default function AddDeliveryScreen({ navigation, route }: Props) {
+export default function AddDeliveryScreen({ navigation }: Props) {
   const dispatch = useDispatch();
   const { address, location, searchByPosition } = useStore();
 
@@ -58,14 +66,12 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
     dispatch({ type: types.disableSearchByPosition });
   };
 
-  const textInputRef = useRef(null);
-  const getAdress = async location => {
-    MapsService.getLocationAddress(location.latitude, location.longitude).then(
-      street => {
-        setFetchedAddress(street);
-        textInputRef.current.blur();
-      },
-    );
+  const textInputRef = useRef<TextInput>(null);
+  const getAdress = async (loc: LocationLong) => {
+    MapsService.getLocationAddress(loc.latitude, loc.longitude).then(street => {
+      setFetchedAddress(street);
+      if (textInputRef.current) textInputRef.current.blur();
+    });
   };
 
   const requestLocationPermission = async () => {
@@ -141,7 +147,7 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
             <MapContainer position={currentPosition} />
           )}
         <Container top={70} width="100%" position="absolute">
-          <TextInput
+          <StyledTextInput
             autoFocus={false}
             onFocus={() => navigation.push('AddAddress')}
             ref={textInputRef}

@@ -18,13 +18,13 @@ export interface Category extends GenericModel {
 
 export interface Resto extends GenericModel {
   name: string;
-  rating: number;
-  timeAproxMin: number;
-  timeAproxMax: number;
+  rating?: number;
+  timeAproxMin?: number;
+  timeAproxMax?: number;
   logoImageSource: string;
-  discount: number;
+  discount?: number;
   location: string;
-  detail: string;
+  detail?: string;
 }
 
 export interface Candidate {
@@ -41,6 +41,11 @@ export interface PlacesResponse {
 export interface Location {
   lat: number;
   lng: number;
+}
+
+export interface LocationLong {
+  latitude: number;
+  longitude: number;
 }
 
 export interface Geometry {

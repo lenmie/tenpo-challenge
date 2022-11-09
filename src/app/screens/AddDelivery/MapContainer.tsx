@@ -1,24 +1,16 @@
 import React from 'react';
-import { AddressMap, Container } from './MapContainer.styled';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 import { StyleSheet } from 'react-native';
 import icons from '../../../constants/icons';
-const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    height: 400,
-    width: 400,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-});
+import { Container } from '../../components/baseComponents';
+import { LocationLong } from '../../../interfaces/interfaces';
 
-export default function MapContainer(props) {
-  const { position } = props;
+interface Props {
+  position: LocationLong;
+  children: React.ReactNode;
+}
 
+export default function MapContainer({ position, children }: Props) {
   return (
     <Container>
       <MapView
@@ -40,8 +32,14 @@ export default function MapContainer(props) {
           description={'description'}
           image={icons.marker1}
         />
-        {props.children}
+        {children}
       </MapView>
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});

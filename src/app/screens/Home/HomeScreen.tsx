@@ -8,7 +8,6 @@ import HomeContentContainer from './HomeContentContainer';
 import HomeTopContainer from './HomeTopContainer';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
-
 export type HomeScreenNavigationProp = Props['navigation'];
 
 export default function HomeScreen() {

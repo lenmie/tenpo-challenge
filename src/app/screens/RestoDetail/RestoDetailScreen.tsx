@@ -8,16 +8,13 @@ import {
   Pressable,
   Text,
 } from '../../components/baseComponents';
-import { useStore } from '../../store/StoreProvider';
 import AddressHeader from '../../components/AddressHeader';
+import { StackParamList } from '../../../navigation/AppNavigator';
 
 type Props = NativeStackScreenProps<StackParamList, 'RestoDetail'>;
+export type RestoDetailScreenNavigationProp = Props['navigation'];
 
-const NEAR_YOU_LOCATION = 'Tu ubicacion cercana';
-const DIRECTION_PLACEHOLDER = 'Calle Agustinas #546';
 const CONTENT_PLACEHOLDER = 'Detalle del restaurante';
-
-const headerHeight = 120;
 const imageSize = 150;
 
 export default function RestoDetailScreen({ navigation, route }: Props) {

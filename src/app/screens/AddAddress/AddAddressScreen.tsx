@@ -1,31 +1,34 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useRef, useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, TextInput } from 'react-native';
 import { theme } from '../../../constants/theme';
 import { StackParamList } from '../../../navigation/AppNavigator';
 import { Box, Container, Image, Text } from '../../components/baseComponents';
-import { TextInput } from '../../components/baseComponents/TextInput.styled';
+import { TextInput as StyledTextInput } from '../../components/baseComponents/TextInput.styled';
 import { MapsService } from '../../../services/MapsService';
 import globals from '../../../constants/globals';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AddressRow from '../SearchResto/SearchRestoListRow';
 import { Candidate } from '../../../interfaces/interfaces';
 import AddressFooterRow from './AddressFooterRow';
+import AddressRow from './AddressRow';
 
-type Props = NativeStackScreenProps<StackParamList, 'Home'>;
+type Props = NativeStackScreenProps<StackParamList, 'AddAddress'>;
+export type AddAddressScreenNavigationProp = Props['navigation'];
 
 const directionInputHeight = 70;
+const timeoutValue = 500;
+
 const DIRECTION_INPUT_PLACEHOLDER = 'Escribe tu direccion';
 const TITLE = 'Agregar direccion de entrega';
 const WAITING = 'Esperando tu ubicacion...';
 
-export default function AddAddressScreen({ navigation, route }: Props) {
+export default function AddAddressScreen() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Candidate[]>([]);
   const [emptyInput, setEmptyInput] = useState(true);
 
-  const searchTimeout = useRef(null);
-  const textInputRef = useRef(null);
+  const searchTimeout = useRef<number>(0);
+  const textInputRef = useRef<TextInput>(null);
 
   const updateResults = (res: Candidate[]) => {
     const resultsCopy = [...results];
@@ -45,11 +48,11 @@ export default function AddAddressScreen({ navigation, route }: Props) {
 
       searchTimeout.current = setTimeout(() => {
         MapsService.getAddresses(term).then(updateResults);
-      }, 500);
+      }, timeoutValue);
     } else {
       setEmptyInput(true);
       setQuery('');
-      textInputRef.current.clear();
+      textInputRef.current?.clear();
     }
   };
 
@@ -104,7 +107,7 @@ export default function AddAddressScreen({ navigation, route }: Props) {
         )}
       </Container>
       <Container top={70} width="100%" position="absolute">
-        <TextInput
+        <StyledTextInput
           autoFocus
           ref={textInputRef}
           onChangeText={onChangeText}

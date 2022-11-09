@@ -8,7 +8,9 @@ export const ImageBackground = styled.ImageBackground`
   ${border}
   ${system({
     resizeMode: {
+      //@ts-ignore todo: correctly type styled 'system' tool
       property: 'resizeMode',
+      //@ts-ignore
       properties: ['cover', 'stretch', 'contain', 'center'],
     },
   })}

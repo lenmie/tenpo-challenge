@@ -4,13 +4,14 @@ import icons from '../../../constants/icons';
 import { Image, Pressable, Text } from '../../components/baseComponents';
 import { useDispatch } from '../../store/StoreProvider';
 import { types } from '../../store/storeReducer';
+import { AddAddressScreenNavigationProp } from './AddAddressScreen';
 
 const rowHeight = 80;
 const iconSize = 22;
 const TITLE = 'Buscar por ubicacion';
 
 export default function AddressFooterRow() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<AddAddressScreenNavigationProp>();
   const dispatch = useDispatch();
 
   const setLocation = () => {
