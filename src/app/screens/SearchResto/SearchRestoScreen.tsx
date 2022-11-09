@@ -1,15 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import {
-  Dimensions,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '../../../constants/icons';
 import { theme } from '../../../constants/theme';
-import Resto from '../../../model/Resto';
 import { StackParamList } from '../../../navigation/AppNavigator';
 import { RestoService } from '../../../services/RestoService';
 import {
@@ -17,7 +11,6 @@ import {
   Container,
   Image,
   Pressable,
-  Text,
 } from '../../components/baseComponents';
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
 import SearchRestoListRow from './SearchRestoListRow';
@@ -25,23 +18,23 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import SearchAreaModalContent from './SearchAreaModalContent';
 import { useDispatch, useStore } from '../../store/StoreProvider';
 import { types } from '../../store/storeReducer';
+import NoResultsMessage from './NoResultsMessage';
+import RestoFetchErrorMessage from './RestoFetchErrorMessage';
+import FilterBar from './FilterBar';
+import AddressHeader from '../../components/AddressHeader';
+import { Resto } from '../../../interfaces/interfaces';
 
-type Props = NativeStackScreenProps<StackParamList, 'Home'>;
+type Props = NativeStackScreenProps<StackParamList, 'SearchResto'>;
+export type SearchRestoScreenNavigationProp = Props['navigation'];
 
-const NEAR_YOU_LOCATION = 'Tu ubicacion cercana';
-const DIRECTION_PLACEHOLDER = 'Calle Agustinas #546';
 const DIRECTION_INPUT_PLACEHOLDER = 'Escribe nombre del restaurante que buscas';
-const OPEN_STORES = 'Solo locales abiertos';
-const SEARCH_AREA = 'Area de Busqueda:';
-const TRY_AGAIN = 'REINTENTAR';
 
 const directionInputHeight = 70;
 const headerHeight = 150;
-const filterContainerHeight = 120;
 const inputOffset = 30;
 
 export default function SearchRestoScreen({ navigation }: Props) {
-  const { address, area } = useStore();
+  const { area } = useStore();
   const dispatch = useDispatch();
   const [openStoresFilter, setOpenStoresFilter] = useState(true);
   const [results, setResults] = useState<Resto[]>([]);
@@ -78,91 +71,30 @@ export default function SearchRestoScreen({ navigation }: Props) {
         height="100%"
         bg={modalActive ? 'white' : ' black'}
         opacity={modalActive ? 0.5 : 1}>
-        <Container
-          height={headerHeight}
-          width="100%"
-          bg="green.0"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="space-between"
-          px={18}>
-          <Container flexDirection="row">
+        <AddressHeader
+          modalActive={modalActive}
+          ExtraComponent={() => (
             <Pressable
               disabled={modalActive}
-              onPress={() => navigation.pop()}
-              flexDirection="row"
+              onPress={() => navigation.push('AddDelivery')}
               justifyContent="center"
-              alignItems="center">
-              <Image height={22} width={22} mr={3} source={icons.leftArrow} />
+              alignItems="center"
+              bg="green.1"
+              borderRadius={50}
+              height={55}
+              width={55}>
+              <Image height={32} width={32} source={icons.target2} />
             </Pressable>
-            <Container width="76%">
-              <Text fontSize={[1]} fontFamily="Gotham-Bold" color="green.3">
-                {NEAR_YOU_LOCATION}
-              </Text>
-              <Text
-                numberOfLines={1}
-                fontSize={[5]}
-                fontFamily="Gotham-Light"
-                color="green.1">
-                {address ? address : DIRECTION_PLACEHOLDER}
-              </Text>
-            </Container>
-          </Container>
+          )}
+        />
 
-          <Pressable
-            disabled={modalActive}
-            onPress={() => navigation.push('AddDelivery')}
-            justifyContent="center"
-            alignItems="center"
-            height={60}
-            width={60}>
-            <Image height={50} width={50} source={icons.target} />
-          </Pressable>
-        </Container>
-
-        <Container
-          bg="grey.2"
-          height={filterContainerHeight}
-          pt={40}
-          justifyContent="space-around"
-          alignItems="center"
-          flexDirection="row">
-          <Pressable
-            disabled={modalActive}
-            opacity={openStoresFilter ? 1 : 0.2}
-            onPress={() => setOpenStoresFilter(!openStoresFilter)}
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="row"
-            borderColor="green.1"
-            borderWidth={1}
-            borderRadius={5}
-            height={40}
-            width={180}>
-            <Text fontSize={[2]} fontFamily="Gotham-Light" color="green.1">
-              {OPEN_STORES}
-            </Text>
-            <Image height={22} width={22} ml={1} source={icons.check} />
-          </Pressable>
-
-          <Pressable
-            disabled={modalActive}
-            onPress={handlePresentModalPress}
-            justifyContent="center"
-            alignItems="center"
-            borderColor="green.1"
-            borderWidth={1}
-            borderRadius={5}
-            height={40}
-            width={180}>
-            <Text fontSize={[2]} fontFamily="Gotham-Light" color="green.1">
-              {SEARCH_AREA}
-              <Text fontFamily="Gotham-Bold" color="green.1">
-                {`${area} KM`}
-              </Text>
-            </Text>
-          </Pressable>
-        </Container>
+        <FilterBar
+          area={area}
+          modalActive={modalActive}
+          openStoresFilter={openStoresFilter}
+          toggleOpenStoresFilter={() => setOpenStoresFilter(!openStoresFilter)}
+          handlePresentModalPress={handlePresentModalPress}
+        />
 
         <Container style={styles.addDirectionInput}>
           <TextInput
@@ -198,54 +130,13 @@ export default function SearchRestoScreen({ navigation }: Props) {
           </Container>
         )}
 
-        {!openStoresFilter && (
-          <Container flex={1}>
-            <Container
-              mt={150}
-              mx={30}
-              justifyContent="center"
-              alignItems="center">
-              <Text fontSize={[3]} color="green.2" fontFamily="Gotham-Bold">
-                Lo sentimos
-              </Text>
-              <Text
-                textAlign="center"
-                fontSize={[6]}
-                color="grey.1"
-                fontFamily="Gotham-Light">
-                En este momento no hay locales abiertos en el area de busqueda
-                determinada.
-              </Text>
-            </Container>
-          </Container>
-        )}
+        {!openStoresFilter && <NoResultsMessage />}
 
         {!!errorStatus.length && (
-          <Container flex={1}>
-            <Container
-              mt={150}
-              mx={30}
-              justifyContent="center"
-              alignItems="center">
-              <Text fontSize={[3]} color="green.2" fontFamily="Gotham-Bold">
-                Lo sentimos
-              </Text>
-              <Text
-                textAlign="center"
-                fontSize={[5]}
-                color="grey.1"
-                fontFamily="Gotham-Light">
-                {errorStatus}
-              </Text>
-              <TouchableOpacity
-                style={styles.addDirectionButton}
-                onPress={mockSearch}>
-                <Text fontSize={[3]} fontFamily="Gotham-Bold" color="white">
-                  {TRY_AGAIN}
-                </Text>
-              </TouchableOpacity>
-            </Container>
-          </Container>
+          <RestoFetchErrorMessage
+            onRetryPress={mockSearch}
+            message={errorStatus}
+          />
         )}
 
         {!errorStatus.length && openStoresFilter && !!results.length && (

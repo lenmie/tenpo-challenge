@@ -1,8 +1,7 @@
 import React from 'react';
-import { backgroundColor, height } from 'styled-system';
-import Category from '../../../model/Category';
+import { StyleSheet } from 'react-native';
+import { Category } from '../../../interfaces/interfaces';
 import {
-  Container,
   ImageBackground,
   Pressable,
   Text,
@@ -19,23 +18,11 @@ export default function CategoryCarouselItem(props: Props) {
   const category = props.item;
 
   return (
-    <Pressable
-      activeOpacity={0.7}
-      //width={cardContainerWidth}
-      //height={cardContainerHeight}
-    >
+    <Pressable activeOpacity={0.7}>
       <ImageBackground
         width={cardContainerWidth}
         height={cardContainerHeight}
-        imageStyle={{
-          height: '100%',
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'rgba(0,0,0,0.15)',
-          borderRadius: 10,
-          resizeMode: 'cover'
-        }}
+        imageStyle={styles.imageStyle}
         alignItems="center"
         justifyContent="center"
         source={{ uri: category.imageSource }}
@@ -51,3 +38,15 @@ export default function CategoryCarouselItem(props: Props) {
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  imageStyle: {
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.15)',
+    borderRadius: 10,
+    resizeMode: 'cover',
+  },
+});

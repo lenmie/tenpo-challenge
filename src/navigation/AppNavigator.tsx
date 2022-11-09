@@ -5,8 +5,8 @@ import HomeScreen from '../app/screens/Home/HomeScreen';
 import AddDeliveryScreen from '../app/screens/AddDelivery/AddDeliveryScreen';
 import AddAddressScreen from '../app/screens/AddAddress/AddAddressScreen';
 import RestoDetailScreen from '../app/screens/RestoDetail/RestoDetailScreen';
-import Resto from '../model/Resto';
 import SearchRestoScreen from '../app/screens/SearchResto/SearchRestoScreen';
+import { Resto } from '../interfaces/interfaces';
 
 export type StackParamList = {
   Home: undefined;

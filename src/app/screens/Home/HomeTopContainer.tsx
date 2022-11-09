@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import globals from '../../../constants/globals';
+import icons from '../../../constants/icons';
 import {
   Box,
   Container,
@@ -11,11 +11,12 @@ import {
 import { useStore } from '../../store/StoreProvider';
 import HomeHeader from './HomeHeader';
 import HomeMainImage from './HomeMainImage';
+import { HomeScreenNavigationProp } from './HomeScreen';
 
 const ADDRESS_SUBTITLE = 'Enviaremos tus pedidos a';
 
 export default function HomeTopContainer() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeScreenNavigationProp>();
   const { address } = useStore();
 
   const title = address ? address : 'Agregar direccion de entrega';
@@ -69,7 +70,7 @@ export default function HomeTopContainer() {
           flexDirection="row"
           justifyContent="center"
           alignItems="center">
-          <Image mr={2} source={globals.images.ui.mapIcon} />
+          <Image mr={2} source={icons.map} height={28} width={25} />
           {!!address ? (
             <Container>
               <Text

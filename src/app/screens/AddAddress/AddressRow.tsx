@@ -4,6 +4,7 @@ import { Location } from '../../../interfaces/interfaces';
 import { Pressable, Text } from '../../components/baseComponents';
 import { useDispatch } from '../../store/StoreProvider';
 import { types } from '../../store/storeReducer';
+import { AddAddressScreenNavigationProp } from './AddAddressScreen';
 
 interface Props {
   address: string;
@@ -14,7 +15,7 @@ interface Props {
 const rowHeight = 80;
 
 export default function AddressRow({ address, name, location }: Props) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<AddAddressScreenNavigationProp>();
   const dispatch = useDispatch();
 
   const setLocation = () => {

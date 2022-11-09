@@ -2,14 +2,18 @@ import React, { useContext, useReducer } from 'react';
 import { createContext } from 'react';
 import storeReducer, { initialStore } from './storeReducer';
 
-export const StoreContext = createContext();
+export const StoreContext = createContext(null);
 
-const StoreProvider = props => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const StoreProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(storeReducer, initialStore);
 
   return (
     <StoreContext.Provider value={[state, dispatch]}>
-      {props.children}
+      {children}
     </StoreContext.Provider>
   );
 };

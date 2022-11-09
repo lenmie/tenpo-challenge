@@ -8,59 +8,23 @@ import {
   Pressable,
   Text,
 } from '../../components/baseComponents';
-import { useStore } from '../../store/StoreProvider';
+import AddressHeader from '../../components/AddressHeader';
+import { StackParamList } from '../../../navigation/AppNavigator';
 
 type Props = NativeStackScreenProps<StackParamList, 'RestoDetail'>;
+export type RestoDetailScreenNavigationProp = Props['navigation'];
 
-const NEAR_YOU_LOCATION = 'Tu ubicacion cercana';
-const DIRECTION_PLACEHOLDER = 'Calle Agustinas #546';
 const CONTENT_PLACEHOLDER = 'Detalle del restaurante';
-
-const headerHeight = 120;
 const imageSize = 150;
 
 export default function RestoDetailScreen({ navigation, route }: Props) {
   const { resto } = route.params;
 
-  const { address } = useStore();
-
   return (
     <SafeAreaView>
       <Container width="100%" bg="green.0" height="100%">
-        <Container
-          height={headerHeight}
-          width="100%"
-          bg="green.0"
-          justifyContent="center"
-          mt={2}
-          pl={18}>
-          <Container
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="space-between">
-            <Container flexDirection="row">
-              <Pressable
-                onPress={() => navigation.pop()}
-                flexDirection="row"
-                justifyContent="center"
-                alignItems="center">
-                <Image height={22} width={22} mr={3} source={icons.leftArrow} />
-              </Pressable>
-
-              <Container>
-                <Text fontSize={[1]} fontFamily="Gotham-Bold" color="green.3">
-                  {NEAR_YOU_LOCATION}
-                </Text>
-                <Text
-                  numberOfLines={1}
-                  fontSize={[5]}
-                  fontFamily="Gotham-Light"
-                  color="green.1">
-                  {address ? address : DIRECTION_PLACEHOLDER}
-                </Text>
-              </Container>
-            </Container>
-
+        <AddressHeader
+          ExtraComponent={() => (
             <Pressable
               onPress={() => navigation.navigate('SearchResto')}
               justifyContent="center"
@@ -69,8 +33,8 @@ export default function RestoDetailScreen({ navigation, route }: Props) {
               width={70}>
               <Image height={32} width={32} source={icons.search} />
             </Pressable>
-          </Container>
-        </Container>
+          )}
+        />
         <Container
           width="100%"
           height={20}

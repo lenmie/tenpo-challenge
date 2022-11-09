@@ -24,7 +24,7 @@ export interface Store {
   location: Location | null;
   searchByPosition: boolean;
 }
-const storeReducer = (state: Store, action) => {
+const storeReducer = (state: Store, action: { type: any; payload: any }) => {
   switch (action.type) {
     case types.setAddress:
       return {

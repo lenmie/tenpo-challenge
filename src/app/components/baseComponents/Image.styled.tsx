@@ -6,7 +6,9 @@ export const Image = styled.Image`
   ${layout}
   ${system({
     resizeMode: {
+      //@ts-ignore todo: correctly type styled 'system' tool
       property: 'resizeMode',
+      //@ts-ignore
       properties: ['cover', 'stretch', 'contain', 'center'],
     },
   })}
