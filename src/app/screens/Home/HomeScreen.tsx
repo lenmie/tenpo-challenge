@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackParamList } from '../../../navigation/AppNavigator';
@@ -8,6 +8,8 @@ import HomeContentContainer from './HomeContentContainer';
 import HomeTopContainer from './HomeTopContainer';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
+
+export type HomeScreenNavigationProp = Props['navigation'];
 
 export default function HomeScreen() {
   return (

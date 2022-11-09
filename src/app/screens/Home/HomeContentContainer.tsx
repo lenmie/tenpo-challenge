@@ -7,6 +7,7 @@ import Carousel from './Carousel';
 import CategoryCarouselItem from './CategoryCarouselItem';
 import FavoriteCarouselItem from './FavoriteCarouselItem';
 import RestoCarouselItem from './RestoCarouselItem';
+import { Category, Favorite, Resto } from '../../../interfaces/interfaces';
 
 const carousels = {
   resto: 'RESTAURANTES',
@@ -15,10 +16,9 @@ const carousels = {
 };
 
 export default function HomeContentContainer() {
-  const [categories, setCategories] = useState([]);
-  const [restos, setRestos] = useState([]);
-  const [favorites, setFavorites] = useState([]);
-
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [restos, setRestos] = useState<Resto[]>([]);
+  const [favorites, setFavorites] = useState<Favorite[]>([]);
   useEffect(() => {
     CategoryService.getCategories().then(setCategories);
   }, []);

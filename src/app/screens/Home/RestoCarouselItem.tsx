@@ -8,6 +8,7 @@ import {
   Pressable,
   Text,
 } from '../../components/baseComponents';
+import { HomeScreenNavigationProp } from './HomeScreen';
 
 interface Props {
   item: Resto;
@@ -19,7 +20,7 @@ const containerWidth = 168;
 
 export default function RestoCarouselItem(props: Props) {
   const resto = props.item;
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const onPress = () => {
     navigation.push('RestoDetail', { resto: resto });
