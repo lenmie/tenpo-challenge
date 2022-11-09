@@ -3,6 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Geolocation from '@react-native-community/geolocation';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  BackHandler,
   PermissionsAndroid,
   Platform,
   StyleSheet,
@@ -56,7 +57,20 @@ export default function AddDeliveryScreen({ navigation }: Props) {
 
   useEffect(() => {
     requestLocationPermission();
-  }, [searchByPosition]);
+  }, []);
+
+  useEffect(() => {
+    const backAction = () => {
+      dispatch({ type: types.enableSearchByPosition });
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    return () => backHandler.remove();
+  }, [dispatch]);
 
   const getLocation = () => {
     Geolocation.getCurrentPosition(position => {
@@ -103,6 +117,8 @@ export default function AddDeliveryScreen({ navigation }: Props) {
       console.warn(err);
     }
   };
+  console.log('searchByPosition', searchByPosition);
+  console.log('currentPosition', currentPosition);
 
   return (
     <SafeAreaView>
@@ -161,6 +177,7 @@ export default function AddDeliveryScreen({ navigation }: Props) {
           onPress={() => {
             dispatch({ type: types.setLocation, payload: currentPosition });
             dispatch({ type: types.setAddress, payload: fetchedAddress });
+            dispatch({ type: types.enableSearchByPosition });
             navigation.pop();
           }}
         />

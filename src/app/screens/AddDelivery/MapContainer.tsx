@@ -7,14 +7,20 @@ import { LocationLong } from '../../../interfaces/interfaces';
 
 interface Props {
   position: LocationLong;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
+
+const mapHeight = 250;
 
 export default function MapContainer({ position, children }: Props) {
   return (
-    <Container>
+    <Container width="100%" height={mapHeight}>
       <MapView
-        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+        zoomEnabled={false}
+        zoomTapEnabled={false}
+        zoomControlEnabled={false}
+        scrollEnabled={false}
+        provider={PROVIDER_GOOGLE}
         style={styles.map}
         region={{
           latitude: position.latitude + 0.001,
