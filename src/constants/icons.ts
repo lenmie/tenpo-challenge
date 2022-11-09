@@ -6,5 +6,6 @@ const icons = {
   search: require('../assets/icons/search.png'),
   marker1: require('../assets/icons/map-marker-1.png'),
   target2: require('../assets/icons/target2.png'),
+  target3: require('../assets/icons/target3.png'),
 };
 export default icons;

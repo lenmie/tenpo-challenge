@@ -1,18 +1,10 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
   Dimensions,
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '../../../constants/icons';
@@ -28,11 +20,12 @@ import {
   Text,
 } from '../../components/baseComponents';
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
-import { StoreContext } from '../../UserContext';
 import SearchRestoListRow from '../AddAddress/AddressRow';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import SearchAreaModalContent from './SearchAreaModalContent';
-var { width, height } = Dimensions.get('window');
+import { useDispatch, useStore } from '../../store/StoreProvider';
+import { types } from '../../store/storeReducer';
+
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
 const NEAR_YOU_LOCATION = 'Tu ubicacion cercana';
@@ -48,13 +41,8 @@ const filterContainerHeight = 120;
 const inputOffset = 30;
 
 export default function SearchRestoScreen({ navigation }: Props) {
-  const {
-    ['area']: [areaKm, setAreaKm],
-  } = useContext(StoreContext);
-  const {
-    ['address']: [addressName],
-  } = useContext(StoreContext);
-
+  const { address, area } = useStore();
+  const dispatch = useDispatch();
   const [openStoresFilter, setOpenStoresFilter] = useState(true);
   const [results, setResults] = useState<Resto[]>([]);
   const [searchInput, setSearchInput] = useState('');
@@ -64,7 +52,7 @@ export default function SearchRestoScreen({ navigation }: Props) {
 
   const mockSearch = () => {
     setErrorStatus('');
-    RestoService.searchResto(searchInput, areaKm).then(response => {
+    RestoService.searchResto(searchInput, area).then(response => {
       if (typeof response === 'string') {
         setErrorStatus(response);
         return;
@@ -116,7 +104,7 @@ export default function SearchRestoScreen({ navigation }: Props) {
                 fontSize={[5]}
                 fontFamily="Gotham-Light"
                 color="green.1">
-                {addressName ? addressName : DIRECTION_PLACEHOLDER}
+                {address ? address : DIRECTION_PLACEHOLDER}
               </Text>
             </Container>
           </Container>
@@ -170,7 +158,7 @@ export default function SearchRestoScreen({ navigation }: Props) {
             <Text fontSize={[2]} fontFamily="Gotham-Light" color="green.1">
               {SEARCH_AREA}
               <Text fontFamily="Gotham-Bold" color="green.1">
-                {`${areaKm} KM`}
+                {`${area} KM`}
               </Text>
             </Text>
           </Pressable>
@@ -276,7 +264,12 @@ export default function SearchRestoScreen({ navigation }: Props) {
           index={1}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}>
-          <SearchAreaModalContent setArea={setAreaKm} areaKm={areaKm} />
+          <SearchAreaModalContent
+            setArea={(newArea: number) => {
+              dispatch({ type: types.setArea, payload: newArea });
+            }}
+            areaKm={area}
+          />
         </BottomSheetModal>
       </Container>
     </SafeAreaView>

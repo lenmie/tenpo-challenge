@@ -21,33 +21,24 @@ export default function MapContainer(props) {
 
   return (
     <Container>
-      {/* <AddressMap
-        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-        region={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
-        }}
-      /> */}
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
         region={{
-          latitude: position.latitude + 0.00075,
+          latitude: position.latitude + 0.001,
           longitude: position.longitude,
           latitudeDelta: 0.005,
           longitudeDelta: 0.005,
         }}>
         <Marker
-          key={'carlos'}
+          key={'key'}
           coordinate={{
             latitude: position.latitude,
             longitude: position.longitude,
           }}
           title={'title'}
           description={'description'}
-          image={icons.star}
+          image={icons.marker1}
         />
         {props.children}
       </MapView>

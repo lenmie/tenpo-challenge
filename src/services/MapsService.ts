@@ -27,7 +27,6 @@ async function getLocationAddress(lat: number, long: number): Promise<string> {
     return [];
   }
 }
-//?input=rivadavia%2049&inputtype=textquery&fields=formatted_address,name&key=AIzaSyCPeX7MewEz5rkWPAHN2zzM-u5LKHxGNrA&locationbias=circle:10000@-34.6220733,-58.4255677
 const PLACES_DEFAULT_PARAMS =
   'inputtype=textquery&fields=formatted_address,name,geometry&locationbias=ipbias';
 async function getAddresses(query: string): Promise<Candidate[]> {
@@ -40,8 +39,7 @@ async function getAddresses(query: string): Promise<Candidate[]> {
       throw new Error(`error status: ${response.status}`);
 
     const data: PlacesResponse = await response.json();
-    console.log(data);
-    
+
     return data.candidates;
   } catch (error) {
     console.log(error);

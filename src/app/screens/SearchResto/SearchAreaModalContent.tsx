@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BackHandler, StyleSheet, TouchableOpacity } from 'react-native';
 import { theme } from '../../../constants/theme';
 import { Container, Text } from '../../components/baseComponents';

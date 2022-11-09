@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useContext } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { theme } from '../../../constants/theme';
 import { Container, Text } from '../../components/baseComponents';
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
-import { UserContext } from '../../UserContext';
+import { useDispatch, useStore } from '../../store/StoreProvider';
+import { types } from '../../store/storeReducer';
 
 const TILE = 'Agregar informacion de entrega';
 const SUBTITLE = 'Depto, Oficina, Piso, Block';
@@ -17,7 +17,13 @@ interface Props {
 }
 
 export default function DeliveryPointDetail({ onPress }: Props) {
-  const [deliveryInfo, setDeliveryInfo] = useState<string>();
+  const { extraAddress } = useStore();
+  const [deliveryInfo, setDeliveryInfo] = useState<string>(extraAddress);
+  const dispatch = useDispatch();
+  const submitAddress = () => {
+    dispatch({ type: types.setExtraAddress, payload: deliveryInfo });
+    onPress();
+  };
 
   return (
     <Container bg="white" height="100%" width="100%">
@@ -44,7 +50,9 @@ export default function DeliveryPointDetail({ onPress }: Props) {
           style={styles.textInput}
         />
 
-        <TouchableOpacity style={styles.addDirectionButton} onPress={onPress}>
+        <TouchableOpacity
+          style={styles.addDirectionButton}
+          onPress={submitAddress}>
           <Text fontSize={[3]} fontFamily="Gotham-Bold" color="white">
             {BUTTON}
           </Text>

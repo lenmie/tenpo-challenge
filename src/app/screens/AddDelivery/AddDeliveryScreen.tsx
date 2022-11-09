@@ -1,22 +1,20 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Geolocation from '@react-native-community/geolocation';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { PermissionsAndroid, Platform, StyleSheet } from 'react-native';
 import { theme } from '../../../constants/theme';
 import { StackParamList } from '../../../navigation/AppNavigator';
 import { Container, Image, Text } from '../../components/baseComponents';
 import { TextInput } from '../../components/baseComponents/TextInput.styled';
-import AddDirectionButton from '../Home/AddDirectionButton';
 import DeliveryPointDetail from './DeliveryPointDetail';
 import MapContainer from './MapContainer';
-import { position } from 'styled-system';
-import icons from '../../../constants/icons';
-import { Marker } from 'react-native-maps';
 import { MapsService } from '../../../services/MapsService';
-import { StoreContext, UserContext } from '../../UserContext';
 import { formatStreetString } from '../../utils/utils';
 import globals from '../../../constants/globals';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch, useStore } from '../../store/StoreProvider';
+import { types } from '../../store/storeReducer';
+import { useFocusEffect } from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
@@ -33,54 +31,49 @@ const PERMISSION_NEGATIVE = 'No permitir';
 const PERMISSION_POSITIVE = 'Permitir';
 
 export default function AddDeliveryScreen({ navigation, route }: Props) {
+  const dispatch = useDispatch();
+  const { address, location, searchByPosition } = useStore();
+
   const [grantedPermission, setGrantedPermission] = useState(false);
   const [waitingForPermission, setWaitingForPermission] = useState(true);
-  const [currentPosition, setCurrentPosition] = useState(null);
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  const {
-    ['address']: [addressName, setAddressName],
-  } = useContext(StoreContext);
+  const [currentPosition, setCurrentPosition] = useState(location);
+  const [fetchedAddress, setFetchedAddress] = useState(address);
+
+  useFocusEffect(
+    useCallback(() => {
+      setCurrentPosition(location);
+      setFetchedAddress(address);
+    }, [location, address, searchByPosition]),
+  );
 
   useEffect(() => {
     requestLocationPermission();
-  }, []);
+  }, [searchByPosition]);
 
   const getLocation = () => {
     Geolocation.getCurrentPosition(position => {
       setCurrentPosition(position.coords);
       getAdress(position.coords);
     });
+    dispatch({ type: types.disableSearchByPosition });
   };
 
+  const textInputRef = useRef(null);
   const getAdress = async location => {
     MapsService.getLocationAddress(location.latitude, location.longitude).then(
-      street => setAddressName(street),
+      street => {
+        setFetchedAddress(street);
+        textInputRef.current.blur();
+      },
     );
   };
 
-  const searchTimeout = useRef(null);
-  const textInputRef = useRef(null);
-
-  const onChangeText = (term: string) => {
-    if (!!term.length) {
-      setQuery(term);
-      if (searchTimeout) clearTimeout(searchTimeout.current);
-
-      searchTimeout.current = setTimeout(() => {
-        MapsService.getAddresses(term).then(res => {});
-      }, 500);
-    } else {
-      setQuery('');
-      textInputRef.current.clear();
-    }
-  };
   const requestLocationPermission = async () => {
     try {
       if (Platform.OS === 'ios') {
-        getLocation();
         setGrantedPermission(true);
         setWaitingForPermission(false);
+        if (searchByPosition) getLocation();
       } else {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -92,7 +85,7 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
           },
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          getLocation();
+          if (searchByPosition) getLocation();
           setGrantedPermission(true);
           setWaitingForPermission(false);
         } else {
@@ -142,15 +135,16 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
             {PERMISSION_DENIED}
           </Text>
         )}
-        {!waitingForPermission && grantedPermission && !!currentPosition && (
-          <MapContainer position={currentPosition} />
-        )}
+        {!waitingForPermission &&
+          grantedPermission &&
+          !!currentPosition?.latitude && (
+            <MapContainer position={currentPosition} />
+          )}
         <Container top={70} width="100%" position="absolute">
           <TextInput
             onFocus={() => navigation.push('AddAddress')}
             ref={textInputRef}
-            onChangeText={onChangeText}
-            value={query}
+            value={formatStreetString(fetchedAddress)}
             textAlignVertical="center"
             style={styles.addDirectionInput}
             placeholder={DIRECTION_INPUT_PLACEHOLDER}
@@ -158,7 +152,8 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
         </Container>
         <DeliveryPointDetail
           onPress={() => {
-            setAddressName(addressName);
+            dispatch({ type: types.setLocation, payload: currentPosition });
+            dispatch({ type: types.setAddress, payload: fetchedAddress });
             navigation.pop();
           }}
         />

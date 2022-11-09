@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { Dimensions } from 'react-native';
 
 import {
@@ -7,7 +7,6 @@ import {
   Pressable,
   Text,
 } from '../../components/baseComponents';
-import { StoreContext } from '../../UserContext';
 
 const { width } = Dimensions.get('screen');
 const bigDotSize = 20;

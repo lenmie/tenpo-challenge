@@ -2,6 +2,7 @@ import { LatLng } from 'react-native-maps';
 
 export function formatStreetString(street: string | null): string | null {
   if (!street) return null;
+  if (street.length < 39) return street;
   return `${street.slice(0, 40)}...`;
 }
 

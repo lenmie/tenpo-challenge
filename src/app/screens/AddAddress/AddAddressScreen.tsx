@@ -1,11 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import {
-  FlatList,
-  PermissionsAndroid,
-  Platform,
-  StyleSheet,
-} from 'react-native';
+import React, { useRef, useState } from 'react';
+import { FlatList, StyleSheet } from 'react-native';
 import { theme } from '../../../constants/theme';
 import { StackParamList } from '../../../navigation/AppNavigator';
 import { Box, Container, Image, Text } from '../../components/baseComponents';
@@ -15,16 +10,19 @@ import globals from '../../../constants/globals';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AddressRow from './AddressRow';
 import { Candidate } from '../../../interfaces/interfaces';
+import AddressFooterRow from './AddressFooterRow';
 
 type Props = NativeStackScreenProps<StackParamList, 'Home'>;
 
 const directionInputHeight = 70;
 const DIRECTION_INPUT_PLACEHOLDER = 'Escribe tu direccion';
 const TITLE = 'Agregar direccion de entrega';
+const WAITING = 'Esperando tu ubicacion...';
 
 export default function AddAddressScreen({ navigation, route }: Props) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Candidate[]>([]);
+  const [emptyInput, setEmptyInput] = useState(true);
 
   const searchTimeout = useRef(null);
   const textInputRef = useRef(null);
@@ -41,6 +39,7 @@ export default function AddAddressScreen({ navigation, route }: Props) {
 
   const onChangeText = (term: string) => {
     if (!!term.length) {
+      setEmptyInput(false);
       setQuery(term);
       if (searchTimeout) clearTimeout(searchTimeout.current);
 
@@ -48,6 +47,7 @@ export default function AddAddressScreen({ navigation, route }: Props) {
         MapsService.getAddresses(term).then(updateResults);
       }, 500);
     } else {
+      setEmptyInput(true);
       setQuery('');
       textInputRef.current.clear();
     }
@@ -68,7 +68,7 @@ export default function AddAddressScreen({ navigation, route }: Props) {
             alignItems="center">
             <Image mr={2} source={globals.images.ui.mapIcon} />
             <Text fontSize={[5]} fontFamily="Gotham-Light" color="green.1">
-              {TITLE}
+              {emptyInput ? WAITING : TITLE}
             </Text>
           </Container>
         </Container>
@@ -81,10 +81,26 @@ export default function AddAddressScreen({ navigation, route }: Props) {
             ItemSeparatorComponent={() => (
               <Box borderWidth={0.5} borderColor="grey.2" width="100%" />
             )}
+            ListFooterComponent={() => (
+              <>
+                <Box borderWidth={0.5} borderColor="grey.2" width="100%" />
+                <AddressFooterRow />
+              </>
+            )}
             renderItem={({ item }) => (
-              <AddressRow address={item.formatted_address} name={item.name} />
+              <AddressRow
+                address={item.formatted_address}
+                name={item.name}
+                location={item.geometry.location}
+              />
             )}
           />
+        )}
+        {!results.length && (
+          <>
+            <Box height={50} bg="white" />
+            <AddressFooterRow />
+          </>
         )}
       </Container>
       <Container top={70} width="100%" position="absolute">
