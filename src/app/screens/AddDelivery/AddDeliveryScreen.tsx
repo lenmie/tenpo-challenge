@@ -142,6 +142,7 @@ export default function AddDeliveryScreen({ navigation, route }: Props) {
           )}
         <Container top={70} width="100%" position="absolute">
           <TextInput
+            autoFocus={false}
             onFocus={() => navigation.push('AddAddress')}
             ref={textInputRef}
             value={formatStreetString(fetchedAddress)}
